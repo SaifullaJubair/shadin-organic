@@ -19,7 +19,7 @@ const MyWishlist = () => {
   useEffect(() => {
     if (user?.email) {
       fetch(
-        `https://shovon-gallery-server.vercel.app/mywishlist/${user?.email}`
+        `https://shadin-organic-server.vercel.app/mywishlist/${user?.email}`
       )
         .then((res) => res.json())
         .then((data) => {
@@ -31,7 +31,7 @@ const MyWishlist = () => {
   const handleDeletePost = (item) => {
     // console.log(post);
     fetch(
-      `https://shovon-gallery-server.vercel.app/wishlist/${item?.productId}?email=${user?.email}`,
+      `https://shadin-organic-server.vercel.app/wishlist/${item?.productId}?email=${user?.email}`,
       {
         method: "DELETE",
         headers: {
@@ -126,16 +126,7 @@ const MyWishlist = () => {
                   </Table.Cell>
                   <Table.Cell>{item?.product?.product_name}</Table.Cell>
                   <Table.Cell>{item?.product?.category}</Table.Cell>
-                  <Table.Cell>
-                    <Tooltip content={item?.product?.primary_color}>
-                      <div
-                        className="w-6 h-6 rounded-full border border-orange-500 "
-                        style={{
-                          backgroundColor: item?.product?.primary_color,
-                        }}
-                      ></div>
-                    </Tooltip>
-                  </Table.Cell>
+
                   <Table.Cell>{item?.product?.product_status}</Table.Cell>
                   <Table.Cell>${item?.product?.price}</Table.Cell>
                   <Table.Cell className="flex gap-3">

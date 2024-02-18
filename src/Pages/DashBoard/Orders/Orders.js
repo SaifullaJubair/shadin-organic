@@ -10,6 +10,7 @@ import {
   FaEllipsisV,
   FaLink,
   FaPlane,
+  FaPrint,
   FaShip,
   FaShippingFast,
   FaTrash,
@@ -18,16 +19,18 @@ import ReactPaginate from "react-paginate";
 import { ImSpinner3 } from "react-icons/im";
 import { RiCheckDoubleFill } from "react-icons/ri";
 import { toast } from "react-toastify";
+import ButtonGroup from "flowbite-react/lib/esm/components/Button/ButtonGroup";
 const Orders = () => {
   const [isLoading, setLoading] = useState(true);
   const [orders, setOrders] = useState([]);
   const { user, loading } = useContext(AuthContext);
   const [itemOffset, setItemOffset] = useState(0);
   const [refetch, setRefetch] = useState(false);
+  const [filter, setFilter] = useState("Processing");
 
   useEffect(() => {
     // Fetch division data from the backend when the component mounts
-    fetch("https://shovon-gallery-server.vercel.app/all-orders")
+    fetch("https://shadin-organic-server.vercel.app/all-orders")
       .then((res) => res.json())
       .then((data) => {
         setLoading(false);
@@ -41,15 +44,25 @@ const Orders = () => {
       });
   }, [refetch]);
 
-  const itemsPerPage = 6;
+  const filteredData = orders.filter((order) => {
+    if (filter === "Processing") {
+      return order.delivered === "Processing";
+    } else if (filter === "Shipped") {
+      return order.delivered === "Shipped";
+    } else if (filter === "Delivered") {
+      return order.delivered === "Delivered";
+    }
+    return true;
+  });
+  const itemsPerPage = 10;
 
   const endOffset = itemOffset + itemsPerPage;
 
-  const currentItems = orders.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(orders.length / itemsPerPage);
+  const currentItems = filteredData.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(filteredData.length / itemsPerPage);
 
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % orders.length;
+    const newOffset = (event.selected * itemsPerPage) % filteredData.length;
     // console.log(
     //     `User requested page number ${event.selected}, which is offset ${newOffset}`
     // );
@@ -61,7 +74,7 @@ const Orders = () => {
     const newStatus = e.target.value;
 
     fetch(
-      `https://shovon-gallery-server.vercel.app/update-delivery-status/${order.transactionId}`,
+      `https://shadin-organic-server.vercel.app/update-delivery-status/${order.transactionId}`,
       {
         method: "PUT",
         headers: {
@@ -99,14 +112,31 @@ const Orders = () => {
         <h2 className="title uppercase p-10 text-center mb-10  text-gray-800 text-2xl font-semibold">
           All Orders{" "}
         </h2>
+        <div>
+          <ButtonGroup className="my-6 mx-2">
+            <Button color="gray" onClick={() => setFilter("")}>
+              All
+            </Button>
+            <Button color="gray" onClick={() => setFilter("Processing")}>
+              Processing
+            </Button>
+            <Button color="gray" onClick={() => setFilter("Shipped")}>
+              Shipped
+            </Button>
+            <Button color="gray" onClick={() => setFilter("Delivered")}>
+              Delivered
+            </Button>
+          </ButtonGroup>
+        </div>
         <Table striped={true}>
           <Table.Head>
             <Table.HeadCell>#</Table.HeadCell>
             <Table.HeadCell>Product Details</Table.HeadCell>
             <Table.HeadCell>User info</Table.HeadCell>
             <Table.HeadCell>Delivery Type & Status </Table.HeadCell>
-            <Table.HeadCell>TransactionID</Table.HeadCell>
-            <Table.HeadCell>View Payment</Table.HeadCell>
+            <Table.HeadCell>OrderID</Table.HeadCell>
+            <Table.HeadCell>Print</Table.HeadCell>
+            <Table.HeadCell>Order Info</Table.HeadCell>
           </Table.Head>
           <Table.Body className="divide-y">
             {currentItems?.map((order, index) => (
@@ -131,18 +161,18 @@ const Orders = () => {
                           alt=""
                         />
                       </div>
-                      <div className="mb-4 w-56 text-xs">
+                      <div className="my-3 w-56 text-xs">
                         <Link
                           className="hover:text-red-500 duration-100"
                           to={`/singleProduct/${product.productId}`}
                         >
                           {" "}
-                          <p className="py-1 ">{product.product_name}</p>
-                          {product?.selectedColor ? (
-                            <p>Color: {product.selectedColor}</p>
-                          ) : (
-                            <p>Color: {product.primary_color}</p>
-                          )}
+                          <p className="py-1 ">
+                            {product.product_name?.length > 40
+                              ? product.product_name.slice(0, 40) + "..."
+                              : product.product_name}
+                          </p>
+                          {product?.size && <p>Size: {product?.size}</p>}
                           <div className="flex items-center gap-1.5 flex-wrap pt-1">
                             <p>Qty: {product.quantity}</p>
                             <p>Price: {product.price}৳</p>
@@ -150,10 +180,6 @@ const Orders = () => {
                           </div>
                           <p className="py-1">Total: {order.totalAmount}৳</p>
                         </Link>
-                        <p className="text-xs ">
-                          OrderID:{" "}
-                          <span className="font-semibold">{order._id}</span>
-                        </p>
                       </div>
                     </div>
                   ))}
@@ -161,12 +187,12 @@ const Orders = () => {
                 {/* <Table.Cell></Table.Cell> */}
                 <Table.Cell>
                   <div className="text-gray-700 ">
-                    <p>{order.userName}</p>
-                    <p>{order.userEmail}</p>
-                    <p>{order.division}</p>
-                    <p>{order.district}</p>
-                    <p>{order.address}</p>
-                    <p>{order.number}</p>
+                    <p>Name: {order.userName}</p>
+                    <p>Email: {order.userEmail}</p>
+                    <p>Division: {order.division}</p>
+                    <p>District: {order.district}</p>
+                    <p>Address: {order.address}</p>
+                    <p>Number: {order.number}</p>
                   </div>
                 </Table.Cell>
                 <Table.Cell>
@@ -188,10 +214,17 @@ const Orders = () => {
                   </select>
                 </Table.Cell>
                 <Table.Cell className="text-xs font-semibold">
-                  <p>TransID: {order.transactionId}</p>
+                  <p> {order._id}</p>
                   <p className="text-xs mt-1">
-                    {order.paymentDate?.slice(0, 23)}
+                    {order.checkoutDate?.slice(0, 23)}
                   </p>
+                </Table.Cell>
+                <Table.Cell className="text-xs font-semibold">
+                  <Link to={`/order-info-print/${order._id}`}>
+                    <Button size="xs" color="success">
+                      <FaPrint className="mr-1"></FaPrint>Print
+                    </Button>
+                  </Link>
                 </Table.Cell>
                 <Table.Cell>
                   <Link

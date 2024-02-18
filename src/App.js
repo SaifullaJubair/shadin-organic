@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import Aos from "aos";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import FacebookMsg from "./components/FacebookMsg/FacebookMsg";
 
 function App() {
   useEffect(() => {
@@ -14,14 +15,15 @@ function App() {
   }, []);
 
   return (
-    <div className="max-w-[1440px] mx-auto">
+    <div className=" ">
       <RouterProvider router={router}></RouterProvider>
       <ToastContainer />
-      <ScrollToTop showUnder={160}>
+      <FacebookMsg />
+      {/* <ScrollToTop showUnder={160}>
         <span className="text-4xl text-blue-600  print:hidden hover:text-sky-600">
           <BsArrowUpCircleFill className="animate-bounce"></BsArrowUpCircleFill>
         </span>
-      </ScrollToTop>
+      </ScrollToTop> */}
     </div>
   );
 }

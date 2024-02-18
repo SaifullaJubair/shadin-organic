@@ -26,7 +26,7 @@ const ShowReview = ({ singleProduct }) => {
 
   useEffect(() => {
     fetch(
-      `https://shovon-gallery-server.vercel.app/all-review/${singleProduct?._id}`
+      `https://shadin-organic-server.vercel.app/all-review/${singleProduct?._id}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -97,7 +97,7 @@ const ShowReview = ({ singleProduct }) => {
       postDate: formattedDate,
     };
     fetch(
-      `https://shovon-gallery-server.vercel.app/review/${singleProduct?._id}?email=${user?.email}`
+      `https://shadin-organic-server.vercel.app/review/${singleProduct?._id}?email=${user?.email}`
     )
       .then((res) => {
         if (!res.ok) {
@@ -120,7 +120,7 @@ const ShowReview = ({ singleProduct }) => {
           setRating(0);
         } else {
           // Perform the API call to submit the review
-          fetch("https://shovon-gallery-server.vercel.app/submit-review", {
+          fetch("https://shadin-organic-server.vercel.app/submit-review", {
             method: "POST",
             headers: {
               "content-type": "application/json",
@@ -186,7 +186,7 @@ const ShowReview = ({ singleProduct }) => {
       postDate: formattedDate,
     };
     // console.log(editReviewData);
-    fetch("https://shovon-gallery-server.vercel.app/edit-review", {
+    fetch("https://shadin-organic-server.vercel.app/edit-review", {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -220,7 +220,7 @@ const ShowReview = ({ singleProduct }) => {
   };
 
   const handleDelete = (data) => {
-    fetch(`https://shovon-gallery-server.vercel.app/delete-review`, {
+    fetch(`https://shadin-organic-server.vercel.app/delete-review`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",

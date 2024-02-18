@@ -43,7 +43,7 @@ const MyReviewDashboard = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`https://shovon-gallery-server.vercel.app/myreview/${user?.email}`)
+      fetch(`https://shadin-organic-server.vercel.app/myreview/${user?.email}`)
         .then((res) => res.json())
         .then((data) => {
           setReviews(data);
@@ -94,7 +94,7 @@ const MyReviewDashboard = () => {
       postDate: formattedDate,
     };
     // console.log("editReviewData", editReviewData);
-    fetch("https://shovon-gallery-server.vercel.app/edit-review", {
+    fetch("https://shadin-organic-server.vercel.app/edit-review", {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -128,7 +128,7 @@ const MyReviewDashboard = () => {
   };
 
   const handleDelete = (data) => {
-    fetch(`https://shovon-gallery-server.vercel.app/delete-review`, {
+    fetch(`https://shadin-organic-server.vercel.app/delete-review`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
@@ -245,7 +245,6 @@ const MyReviewDashboard = () => {
                     <div className="text-sm py-1 ms-2">
                       <p>{review?.product?.product_name}</p>
                       <p className="my-1">{review?.product?.category}</p>
-                      <p className="mb-1">{review.product.primary_color}</p>
                       <p>{review?.product?.price}৳ </p>
                     </div>
                   </div>

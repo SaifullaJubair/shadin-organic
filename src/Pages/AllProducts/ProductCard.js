@@ -15,7 +15,7 @@ const ProductCard = ({ product }) => {
 
   // const [singleProduct, setSingleProduct] = useState({});
   useEffect(() => {
-    fetch(`https://shovon-gallery-server.vercel.app/all-review/${product?._id}`)
+    fetch(`https://shadin-organic-server.vercel.app/all-review/${product?._id}`)
       .then((res) => res.json())
       .then((data) => {
         setReviews(data);
@@ -86,7 +86,6 @@ const ProductCard = ({ product }) => {
     product_uid,
     product_name,
     category,
-    product_heading,
     box_content,
     primary_color,
     primary_img,
@@ -117,7 +116,7 @@ const ProductCard = ({ product }) => {
 
     if (wishList) {
       return fetch(
-        `https://shovon-gallery-server.vercel.app/wishlist/${product?._id}?email=${user?.email}`,
+        `https://shadin-organic-server.vercel.app/wishlist/${product?._id}?email=${user?.email}`,
         {
           method: "DELETE",
           headers: {
@@ -131,7 +130,7 @@ const ProductCard = ({ product }) => {
         })
         .catch((err) => console.log(err));
     } else {
-      return fetch("https://shovon-gallery-server.vercel.app/add-wishlist", {
+      return fetch("https://shadin-organic-server.vercel.app/add-wishlist", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -148,7 +147,7 @@ const ProductCard = ({ product }) => {
   useEffect(() => {
     if (!user?.email) return;
     fetch(
-      `https://shovon-gallery-server.vercel.app/wishlist/${product?._id}?email=${user?.email}`
+      `https://shadin-organic-server.vercel.app/wishlist/${product?._id}?email=${user?.email}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -189,15 +188,15 @@ const ProductCard = ({ product }) => {
         </button>
 
         <Link to={`/singleproduct/${product?._id}`}>
-          <img
-            src={primary_img}
-            alt=""
-            className="lg:h-64 md:h-64 h-96 w-full transition duration-500 group-hover:scale-105 "
-          />
+          <div className="lg:h-72  md:h-64 h-72 transition duration-500 group-hover:scale-105 bg-white flex flex-col items-center justify-center  ">
+            <img src={primary_img} alt={product_name} className="h-full" />
+          </div>
 
           <div className="relative border border-gray-100 bg-white ">
             <h3 className="mt-4  text-gray-700 mx-4 font-semibold">
-              {product_name}
+              {product_name.length > 30
+                ? product_name.slice(0, 30) + "..."
+                : product_name}
             </h3>
             <h3 className="mt-4  text-gray-500 mx-4 ">{category}</h3>
 

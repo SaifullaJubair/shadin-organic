@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import Banner from "../Banner/Banner";
 import FeaturedCategories from "../FeaturedCategories/FeaturedCategories";
-import FlashSale from "../FlashSale/FlashSale";
+import OurProduct from "../FlashSale/FlashSale";
 import LatestProducts from "../LatestProducts/LatestProducts";
 import ParallaxBanner from "../ParallaxBanner/ParallaxBanner";
 import Discount from "../Discount/Discount";
@@ -21,18 +21,18 @@ const Home = () => {
   return (
     <div>
       <Helmet>
-        <title>ShovonGallery-Home</title>
+        <title>Shadin Organic</title>
       </Helmet>
       <Banner></Banner>
       <FeaturedCategories></FeaturedCategories>
-      {/* <ParallaxBanner></ParallaxBanner> */}
-      <FlashSale></FlashSale>
-      <FixedImg></FixedImg>
       <LatestProducts></LatestProducts>
-      <Discount></Discount>
+      {/* <ParallaxBanner></ParallaxBanner> */}
+      <OurProduct></OurProduct>
+      <FixedImg></FixedImg>
+      {/* <Discount></Discount> */}
       <IconicProducts></IconicProducts>
       {/* <CustomerReview></CustomerReview> */}
-      <ShopLocation></ShopLocation>
+      {/* <ShopLocation></ShopLocation> */}
     </div>
   );
 };

@@ -27,6 +27,8 @@ import Statistics from "../../Pages/DashBoard/Statistics/Statistics";
 import PaymentSuccess from "../../Pages/Payment/PaymentSuccess";
 import Orders from "../../Pages/DashBoard/Orders/Orders";
 import PaymentError from "../../Pages/Payment/PaymentError";
+import AllQnA from "../../Pages/DashBoard/AllQnA/AllQnA";
+import PrintOrderInfo from "../../Pages/DashBoard/PrintOrderInfo/PrintOrderInfo";
 
 const { createBrowserRouter } = require("react-router-dom");
 const { default: Main } = require("../../Layout/Main/Main");
@@ -70,14 +72,14 @@ const router = createBrowserRouter([
         path: "/singleproduct/:id",
         element: <SingleProduct></SingleProduct>,
         // loader: ({ params }) =>
-        //   fetch(`https://shovon-gallery-server.vercel.app/singleproduct/${params.id}`),
+        //   fetch(`https://shadin-organic-server.vercel.app/singleproduct/${params.id}`),
       },
       {
         path: "/category/:name",
         element: <ProductByCategory></ProductByCategory>,
         loader: ({ params }) =>
           fetch(
-            `https://shovon-gallery-server.vercel.app/category/${params.name}`
+            `https://shadin-organic-server.vercel.app/category/${params.name}`
           ),
       },
       {
@@ -85,10 +87,10 @@ const router = createBrowserRouter([
         element: <AboutUs></AboutUs>,
       },
 
-      {
-        path: "/contact",
-        element: <Contact></Contact>,
-      },
+      // {
+      //   path: "/contact",
+      //   element: <Contact></Contact>,
+      // },
       {
         path: "/userprofile",
         element: (
@@ -110,6 +112,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <PaymentSuccess />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/order-info-print/:id",
+        element: (
+          <PrivateRoute>
+            <PrintOrderInfo />
           </PrivateRoute>
         ),
       },
@@ -190,7 +200,7 @@ const router = createBrowserRouter([
         ),
         loader: ({ params }) =>
           fetch(
-            `https://shovon-gallery-server.vercel.app/singleproduct/${params.id}`
+            `https://shadin-organic-server.vercel.app/singleproduct/${params.id}`
           ),
       },
       {
@@ -198,6 +208,14 @@ const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <Categories />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/all-qna",
+        element: (
+          <AdminRoute>
+            <AllQnA />
           </AdminRoute>
         ),
       },

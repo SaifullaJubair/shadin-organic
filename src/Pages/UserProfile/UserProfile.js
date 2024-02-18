@@ -29,7 +29,7 @@ const UserProfile = () => {
   useEffect(() => {
     if (user && user.email) {
       // Fetch user data only if user is available and has an email
-      fetch(`https://shovon-gallery-server.vercel.app/singleuser/${user.email}`)
+      fetch(`https://shadin-organic-server.vercel.app/singleuser/${user.email}`)
         .then((res) => res.json())
         .then((data) => {
           setSingleUser(data);
@@ -88,7 +88,7 @@ const UserProfile = () => {
     };
 
     // console.log(data);
-    fetch("https://shovon-gallery-server.vercel.app/edituser", {
+    fetch("https://shadin-organic-server.vercel.app/edituser", {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -108,7 +108,7 @@ const UserProfile = () => {
   };
   useEffect(() => {
     // Fetch division data from the backend when the component mounts
-    fetch("https://shovon-gallery-server.vercel.app/bangladesh")
+    fetch("https://shadin-organic-server.vercel.app/bangladesh")
       .then((res) => res.json())
       .then((data) => {
         // Assuming the division data is stored in the 'divisions' property

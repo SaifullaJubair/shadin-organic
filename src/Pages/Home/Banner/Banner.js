@@ -14,17 +14,16 @@ import { EffectFade, Autoplay, Pagination, Navigation } from "swiper/modules";
 import { Carousel } from "flowbite-react";
 import { useEffect } from "react";
 import Loader from "../../../Shared/Loader/Loader";
-import img1 from "../../../assets/product-img/Artificial Flower Bangles-6-1.jpg";
-import img2 from "../../../assets/product-img/Artificial Flower Jewellery Set-17-1.png";
-import img3 from "../../../assets/product-img/Antique Jewellery Set-10.jpg";
-import img4 from "../../../assets/product-img/Artificial Flower Jewellery Set-48.png";
-import img5 from "../../../assets/product-img/Artificial Flower Jewellery Set-7.jpg";
+import img1 from "../../../assets/product-img/nim.jpg";
+import img2 from "../../../assets/product-img/sojnepata.jpg";
+import img3 from "../../../assets/product-img/multanimati.jpg";
+import img4 from "../../../assets/product-img/hortoki.jpg";
 
 const Banner = () => {
   const [bannerImg, setBannerImg] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    fetch("https://shovon-gallery-server.vercel.app/allBannerImg")
+    fetch("https://shadin-organic-server.vercel.app/allBannerImg")
       .then((res) => res.json())
       .then((data) => {
         const activeBannerImg = data.filter((item) => item.status === "Active");
@@ -104,29 +103,31 @@ const Banner = () => {
     //     </SwiperSlide>
     //   </Swiper>
     // </div>
-    <div className="lg:h-[820px] md:h-[500px] h-[400px] mx w-full ">
-      {isLoading ? (
-        <Loader />
-      ) : bannerImg.length > 1 ? (
-        <Carousel>
-          {bannerImg.map((item) => (
-            <img
-              src={item?.bannerImg}
-              alt="..."
-              className="w-full h-full"
-              key={item._id}
-            />
-          ))}
-        </Carousel>
-      ) : (
-        <Carousel>
-          <img src={img1} alt="..." className="w-full h-full" />
-          <img src={img2} alt="..." className="w-full h-full" />
-          <img src={img3} alt="..." className="w-full h-full" />
-          <img src={img4} alt="..." className="w-full h-full" />
-          <img src={img5} alt="..." className="w-full h-full" />
-        </Carousel>
-      )}
+
+    <div className="max-w-[1440px] mx-auto">
+      <div className="xl:h-[880px] lg:h-[820px] md:h-[500px] h-[400px] mx w-full ">
+        {isLoading ? (
+          <Loader />
+        ) : bannerImg.length > 1 ? (
+          <Carousel>
+            {bannerImg.map((item) => (
+              <img
+                src={item?.bannerImg}
+                alt="..."
+                className="w-full h-full"
+                key={item._id}
+              />
+            ))}
+          </Carousel>
+        ) : (
+          <Carousel className="">
+            <img src={img1} alt="..." className="w-full h-full" />
+            <img src={img2} alt="..." className="w-full h-full" />
+            <img src={img3} alt="..." className="w-full h-full" />
+            <img src={img4} alt="..." className="w-full h-full" />
+          </Carousel>
+        )}
+      </div>
     </div>
   );
 };

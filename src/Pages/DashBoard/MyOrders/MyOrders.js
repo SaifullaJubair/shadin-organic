@@ -8,16 +8,18 @@ import Loader from "../../../Shared/Loader/Loader";
 import { Link } from "react-router-dom";
 import { FaEllipsisV, FaLink, FaTrash } from "react-icons/fa";
 import ReactPaginate from "react-paginate";
+import ButtonGroup from "flowbite-react/lib/esm/components/Button/ButtonGroup";
 
 const MyOrders = () => {
   const [isLoading, setLoading] = useState(true);
   const [orders, setOrders] = useState([]);
   const { user, loading } = useContext(AuthContext);
   const [itemOffset, setItemOffset] = useState(0);
-
+  const [filter, setFilter] = useState("Processing");
   useEffect(() => {
-    // Fetch division data from the backend when the component mounts
-    fetch(`https://shovon-gallery-server.vercel.app/orders/${user.email}`)
+    fetch(
+      `https://shadin-organic-server.vercel.app/dashboard/orders/${user.email}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setLoading(false);
@@ -30,16 +32,26 @@ const MyOrders = () => {
         // Handle fetch error if necessary
       });
   }, []);
+  const filteredData = orders?.filter((order) => {
+    if (filter === "Processing") {
+      return order?.delivered === "Processing";
+    } else if (filter === "Shipped") {
+      return order?.delivered === "Shipped";
+    } else if (filter === "Delivered") {
+      return order?.delivered === "Delivered";
+    }
+    return true;
+  });
 
   const itemsPerPage = 6;
 
   const endOffset = itemOffset + itemsPerPage;
 
-  const currentItems = orders?.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(orders?.length / itemsPerPage);
+  const currentItems = filteredData?.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(filteredData?.length / itemsPerPage);
 
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % orders.length;
+    const newOffset = (event.selected * itemsPerPage) % filteredData.length;
     // console.log(
     //     `User requested page number ${event.selected}, which is offset ${newOffset}`
     // );
@@ -62,15 +74,54 @@ const MyOrders = () => {
         <h2 className="title uppercase p-10 text-center mb-8  text-gray-800 text-2xl font-semibold">
           MY Orders{" "}
         </h2>
+        <div>
+          <ButtonGroup className="my-6 mx-2">
+            <Button
+              color="gray"
+              onClick={() => setFilter("")}
+              className={`${
+                filteredData === "" ? "border-2 border-blue-400" : ""
+              }`}
+            >
+              All
+            </Button>
+            <Button
+              color="gray"
+              onClick={() => setFilter("Processing")}
+              className={`${
+                filteredData === "Processing" ? "border-2 border-blue-400" : ""
+              }`}
+            >
+              Processing
+            </Button>
+            <Button
+              color="gray"
+              onClick={() => setFilter("Shipped")}
+              className={`${
+                filteredData === "Shipped" ? "border-3 border-blue-400" : ""
+              }`}
+            >
+              Shipped
+            </Button>
+            <Button
+              color="gray"
+              onClick={() => setFilter("Delivered")}
+              className={`${
+                filteredData === "Delivered" ? "border-2 border-blue-400" : ""
+              }`}
+            >
+              Delivered
+            </Button>
+          </ButtonGroup>
+        </div>
         <Table striped={true}>
           <Table.Head>
             <Table.HeadCell>#</Table.HeadCell>
             <Table.HeadCell>Product Details</Table.HeadCell>
             <Table.HeadCell>Order Date</Table.HeadCell>
-            <Table.HeadCell>Delivery Type </Table.HeadCell>
             <Table.HeadCell>Delivered </Table.HeadCell>
-            <Table.HeadCell>TransactionID</Table.HeadCell>
-            <Table.HeadCell>View Payment</Table.HeadCell>
+            <Table.HeadCell>OrderID</Table.HeadCell>
+            <Table.HeadCell>Order Detail</Table.HeadCell>
           </Table.Head>
           <Table.Body className="divide-y">
             {currentItems?.map((order, index) => (
@@ -83,8 +134,11 @@ const MyOrders = () => {
                 </Table.Cell>
                 <Table.Cell>
                   {/* Product details */}
-                  {order.cartProducts.map((product, productIndex) => (
-                    <div key={productIndex} className="flex items-center gap-4">
+                  {order?.cartProducts?.map((product, productIndex) => (
+                    <div
+                      key={productIndex}
+                      className="flex items-center my-4 gap-4"
+                    >
                       <div className="w-20 h-20">
                         <img
                           src={product.img}
@@ -98,11 +152,13 @@ const MyOrders = () => {
                           to={`/singleProduct/${product.productId}`}
                         >
                           {" "}
-                          <p className="py-1 ">{product.product_name}</p>
-                          {product?.selectedColor ? (
-                            <p>Color: {product.selectedColor}</p>
-                          ) : (
-                            <p>Color: {product.primary_color}</p>
+                          <p className="py-1 ">
+                            {product?.product_name.length > 50
+                              ? product?.product_name.slice(0, 50) + "..."
+                              : product?.product_name}
+                          </p>
+                          {product?.size && (
+                            <p className="py-1">Size: {product?.size}</p>
                           )}
                           <div className="flex items-center gap-1.5 flex-wrap pt-1">
                             <p>Qty: {product.quantity}</p>
@@ -116,10 +172,6 @@ const MyOrders = () => {
                             </span>
                           </p>
                         </Link>
-                        <p className="text-xs pt-1.5">
-                          OrderID:{" "}
-                          <span className="font-semibold">{order._id}</span>
-                        </p>
                       </div>
                     </div>
                   ))}
@@ -128,12 +180,10 @@ const MyOrders = () => {
                 <Table.Cell>
                   {" "}
                   <p className="text-xs w-20">
-                    {order?.paymentDate?.slice(0, 23)}
+                    {order?.checkoutDate?.slice(0, 23)}
                   </p>{" "}
                 </Table.Cell>
-                <Table.Cell className="uppercase text-xs">
-                  {order?.deliveryType} Delivery
-                </Table.Cell>
+
                 <Table.Cell>
                   <span className="bg-gray-200 px-1.5 text-xs  py-1  rounded-xl">
                     {order.delivered}
@@ -141,10 +191,9 @@ const MyOrders = () => {
                   <p className="text-xs pt-1">
                     {order?.deliveredDate?.slice(0, 12)}
                   </p>
-                  <p></p>
                 </Table.Cell>
                 <Table.Cell className="text-xs font-semibold">
-                  {order.transactionId}
+                  {order?._id}
                 </Table.Cell>
                 <Table.Cell>
                   <Link

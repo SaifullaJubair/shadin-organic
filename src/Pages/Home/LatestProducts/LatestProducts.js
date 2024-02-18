@@ -8,7 +8,7 @@ const LatestProducts = () => {
 
   useEffect(() => {
     fetch(
-      "https://shovon-gallery-server.vercel.app/latest-products-by-category"
+      "https://shadin-organic-server.vercel.app/latest-products-by-category"
     )
       .then((res) => res.json())
       .then((data) => {
@@ -25,24 +25,26 @@ const LatestProducts = () => {
 
   console.log("Tranding products", products);
   return (
-    <div>
-      {products.length !== 0 && (
-        <div className="my-12 w-full ">
-          <div>
-            <h1 className="text-2xl mx-3 mt-16 mb-6 text-gray-700 font-semibold">
-              Trending Product
-            </h1>
+    <div className="max-w-[1440px] mx-auto">
+      <div>
+        {products.length !== 0 && (
+          <div className="my-12 w-full ">
+            <div>
+              <h1 className="text-2xl mx-3 mt-16 mb-6 text-gray-700 font-semibold">
+                Latest Product
+              </h1>
+            </div>
+            <div className="grid gap-4 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-cols-1 ">
+              {products.map((product) => (
+                <LatestProductCard
+                  key={product?._id}
+                  product={product}
+                ></LatestProductCard>
+              ))}
+            </div>
           </div>
-          <div className="grid gap-4 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-cols-1 ">
-            {products.map((product) => (
-              <LatestProductCard
-                key={product?._id}
-                product={product}
-              ></LatestProductCard>
-            ))}
-          </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

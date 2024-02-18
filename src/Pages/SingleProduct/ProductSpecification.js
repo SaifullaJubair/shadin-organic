@@ -5,13 +5,12 @@ const ProductSpecification = ({ singleProduct }) => {
     _id,
     product_name,
     category,
-    product_heading,
     box_content,
     primary_color,
     primary_img,
     price,
     available_color,
-
+    size,
     product_highlight,
     details,
     feature_img1,
@@ -35,7 +34,7 @@ const ProductSpecification = ({ singleProduct }) => {
               </th>
               <td className="px-6 py-4">{product_name}</td>
             </tr>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+            {/* <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
               <th
                 scope="row"
                 className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -64,7 +63,18 @@ const ProductSpecification = ({ singleProduct }) => {
                   </div>
                 ))}
               </td>
-            </tr>
+            </tr> */}
+            {size && (
+              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th
+                  scope="row"
+                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                >
+                  Size
+                </th>
+                <td className="px-6 py-4">{singleProduct?.size}</td>
+              </tr>
+            )}
             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
               <th
                 scope="row"
@@ -98,9 +108,9 @@ const ProductSpecification = ({ singleProduct }) => {
                 scope="row"
                 className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
               >
-                Reference no.
+                SKU
               </th>
-              <td className="px-6 py-4">SG-{_id}</td>
+              <td className="px-6 py-4 text-gray-700">{_id}</td>
             </tr>
           </tbody>
         </table>

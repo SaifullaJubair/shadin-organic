@@ -43,7 +43,7 @@ const DashboardLayout = () => {
     try {
       if (user.email) {
         const response = await fetch(
-          `https://shovon-gallery-server.vercel.app/singleuser/${user?.email}`
+          `https://shadin-organic-server.vercel.app/singleuser/${user?.email}`
         );
         const data = await response.json();
         setUserData(data);
@@ -131,6 +131,14 @@ const DashboardLayout = () => {
                         </span>
                       </NavLink>
                     </li>
+                    <li>
+                      <BsQuestionOctagon className="inline-block ml-4 mr-6 h-7" />
+                      <NavLink to={`/dashboard/QnA`}>
+                        <span className={hide ? "hidden" : "inline"}>
+                          My QnA
+                        </span>
+                      </NavLink>
+                    </li>
                   </>
                 )}
 
@@ -157,6 +165,14 @@ const DashboardLayout = () => {
                       <NavLink to={`/dashboard/add-categories`}>
                         <span className={hide ? "hidden" : "inline"}>
                           Categories
+                        </span>
+                      </NavLink>
+                    </li>
+                    <li>
+                      <BsQuestionOctagon className="inline-block ml-4 mr-6 h-7" />
+                      <NavLink to={`/dashboard/all-qna`}>
+                        <span className={hide ? "hidden" : "inline"}>
+                          All QnA
                         </span>
                       </NavLink>
                     </li>
@@ -207,12 +223,6 @@ const DashboardLayout = () => {
                 {/*  Admin end here */}
 
                 {/* For Everyone */}
-                <li>
-                  <BsQuestionOctagon className="inline-block ml-4 mr-6 h-7" />
-                  <NavLink to={`/dashboard/QnA`}>
-                    <span className={hide ? "hidden" : "inline"}>My QnA</span>
-                  </NavLink>
-                </li>
 
                 <li>
                   <FaHeart className="inline-block ml-4 mr-6 h-7" />

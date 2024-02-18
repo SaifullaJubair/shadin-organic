@@ -8,7 +8,7 @@ const IconicProducts = () => {
   const [singleProduct, setSingleProduct] = useState([]);
   const [nextTwoProducts, setNextTwoProducts] = useState([]);
   useEffect(() => {
-    fetch("https://shovon-gallery-server.vercel.app/products")
+    fetch("https://shadin-organic-server.vercel.app/products")
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);
@@ -25,7 +25,7 @@ const IconicProducts = () => {
   }, []);
   // console.log(nextTwoProducts);
   return (
-    <div>
+    <div className="max-w-[1440px] mx-auto">
       <section>
         <div className="lg:w-full md:w-4/6 sm:w-96 w-full px-4 py-8 mx-auto sm:px-6 sm:py-12 lg:px-4">
           {singleProduct && (
@@ -35,9 +35,7 @@ const IconicProducts = () => {
               </h2>
 
               <p className="max-w-md mx-auto mt-4 text-gray-500">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque
-                praesentium cumque iure dicta incidunt est ipsam, officia dolor
-                fugit natus?
+                Our new products
               </p>
             </header>
           )}

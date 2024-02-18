@@ -2,22 +2,18 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
-import { Link, useLocation } from "react-router-dom";
-import logo from "../../assets/Logo/logo.png";
-import Loader from "../../Shared/Loader/Loader";
-const PaymentSuccess = () => {
+import { Link, useParams } from "react-router-dom";
+import logo from "../../../assets/Logo/logo.png";
+import Loader from "../../../Shared/Loader/Loader";
+const PrintOrderInfo = () => {
+  const { id } = useParams();
+  console.log(id);
   const [order, setOrder] = useState({});
   const [isLoading, setLoading] = useState(true);
 
-  const location = useLocation();
-  const query = new URLSearchParams(location.search);
-  const transactionId = query.get("transactionId");
-
   useEffect(() => {
     // Fetch division data from the backend when the component mounts
-    fetch(
-      `https://shadin-organic-server.vercel.app/orders/by-transaction-id/${transactionId}`
-    )
+    fetch(`https://shadin-organic-server.vercel.app/orders/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setLoading(false);
@@ -54,9 +50,19 @@ const PaymentSuccess = () => {
       <h1 className="text-2xl text-secondary font-semibold flex items-center justify-center my-2">
         Order History! <FaCheckCircle className="ml-1.5 text-green-300" />
       </h1>
+      <div>
+        <h1 className="text-xl font-semibold   my-2">User Info!</h1>
+        <p>Name: {order?.userName}</p>
+        <p>Email: {order?.userEmail}</p>
+        <p>Phone: {order?.number}</p>
+        <p>Division: {order?.division}</p>
+        <p>District: {order?.district}</p>
+        <p>Address: {order?.address}</p>
+      </div>
+      <hr />
 
       <div>
-        <h1 className="text-xl font-semibold mt-6">Order information</h1>
+        <h1 className="text-xl font-semibold mt-3">Order information</h1>
         <div className="text-sm my-4 text-gray-700">
           <p>
             OrderID: <span className="font-semibold">{order._id}</span>
@@ -88,9 +94,6 @@ const PaymentSuccess = () => {
                   {" "}
                   <x3>{item.quantity}</x3>(qty)
                 </span>
-                {item?.size && (
-                  <span className="block"> Size:{item?.size}</span>
-                )}
               </h3>
             </Link>
             <div className="text-right mb-1">
@@ -158,4 +161,4 @@ const PaymentSuccess = () => {
   );
 };
 
-export default PaymentSuccess;
+export default PrintOrderInfo;

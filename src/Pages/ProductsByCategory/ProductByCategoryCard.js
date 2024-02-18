@@ -20,13 +20,12 @@ const ProductCard = ({ product }) => {
     product_uid,
     product_name,
     category,
-    product_heading,
     box_content,
-    primary_color,
+
     primary_img,
     price,
     product_status,
-    available_color,
+
     user_email,
     user_image,
     user_name,
@@ -51,7 +50,7 @@ const ProductCard = ({ product }) => {
 
     if (wishList) {
       return fetch(
-        `https://shovon-gallery-server.vercel.app/wishlist/${product?._id}?email=${user?.email}`,
+        `https://shadin-organic-server.vercel.app/wishlist/${product?._id}?email=${user?.email}`,
         {
           method: "DELETE",
           headers: {
@@ -65,7 +64,7 @@ const ProductCard = ({ product }) => {
         })
         .catch((err) => console.log(err));
     } else {
-      return fetch("https://shovon-gallery-server.vercel.app/add-wishlist", {
+      return fetch("https://shadin-organic-server.vercel.app/add-wishlist", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -82,7 +81,7 @@ const ProductCard = ({ product }) => {
   useEffect(() => {
     if (!user?.email) return;
     fetch(
-      `https://shovon-gallery-server.vercel.app/wishlist/${product?._id}?email=${user?.email}`
+      `https://shadin-organic-server.vercel.app/wishlist/${product?._id}?email=${user?.email}`
     )
       .then((res) => res.json())
       .then((data) => {

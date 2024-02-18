@@ -7,7 +7,7 @@ const useBuyer = (email) => {
   useEffect(() => {
     if (email) {
       fetch(
-        `https://shovon-gallery-server.vercel.app/users/checkBuyer?email=${email}`
+        `https://shadin-organic-server.vercel.app/users/checkBuyer?email=${email}`
       )
         .then((res) => res.json())
         .then((data) => {

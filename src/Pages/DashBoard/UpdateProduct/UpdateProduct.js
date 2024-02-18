@@ -12,7 +12,6 @@ function UpdateProduct() {
 
   const [show, setShow] = useState(false);
   const [date, setDate] = useState(new Date().toISOString());
-  const [agree, setAgree] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errPrice, setErrPrice] = useState(0);
   const [value, setValue] = useState();
@@ -22,8 +21,9 @@ function UpdateProduct() {
     _id,
     product_uid,
     product_name,
+    size,
     category,
-    product_heading,
+    // product_heading,
     box_content,
     primary_color,
     product_status,
@@ -56,7 +56,7 @@ function UpdateProduct() {
   );
 
   useEffect(() => {
-    fetch("https://shovon-gallery-server.vercel.app/allcategories")
+    fetch("https://shadin-organic-server.vercel.app/allcategories")
       .then((res) => res.json())
       .then((data) => setCategories(data));
   }, []);
@@ -69,36 +69,36 @@ function UpdateProduct() {
   const handleChange = (selectedDate) => {
     setDate(new Date(selectedDate).toISOString());
   };
-  const option = [
-    { id: "#FF0000", name: "Red" },
-    { id: "#0000FF", name: "Blue" },
-    { id: "#FFFF00", name: "Yellow" },
-    { id: "#008000", name: "Green" },
-    { id: "#ffffff", name: "White" },
-    { id: "#000000", name: "Black" },
-    { id: "#ffa500", name: "Orange" },
-    { id: "#ffc0cb", name: "Pink" },
-    { id: "#800080", name: "Purple" },
-    { id: "#a52a2a", name: "Brown" },
-    { id: "#808080", name: "Grey" },
-    { id: "#800000", name: "Maroon" },
-    { id: "#00ffff", name: "Cyan" },
-    { id: "#d2691e", name: "Chocolate" },
-    { id: "#00ffff", name: "Aqua" },
-    { id: "#00ff00", name: "Lime" },
-    { id: "#4b0082", name: "Indigo" },
-    { id: "#ffd700", name: "Golden" },
-    { id: "#c0c0c0", name: "Silver" },
-    { id: "#CD7F32", name: "Bronze" },
-  ];
+  // const option = [
+  //   { id: "#FF0000", name: "Red" },
+  //   { id: "#0000FF", name: "Blue" },
+  //   { id: "#FFFF00", name: "Yellow" },
+  //   { id: "#008000", name: "Green" },
+  //   { id: "#ffffff", name: "White" },
+  //   { id: "#000000", name: "Black" },
+  //   { id: "#ffa500", name: "Orange" },
+  //   { id: "#ffc0cb", name: "Pink" },
+  //   { id: "#800080", name: "Purple" },
+  //   { id: "#a52a2a", name: "Brown" },
+  //   { id: "#808080", name: "Grey" },
+  //   { id: "#800000", name: "Maroon" },
+  //   { id: "#00ffff", name: "Cyan" },
+  //   { id: "#d2691e", name: "Chocolate" },
+  //   { id: "#00ffff", name: "Aqua" },
+  //   { id: "#00ff00", name: "Lime" },
+  //   { id: "#4b0082", name: "Indigo" },
+  //   { id: "#ffd700", name: "Golden" },
+  //   { id: "#c0c0c0", name: "Silver" },
+  //   { id: "#CD7F32", name: "Bronze" },
+  // ];
   const handleAddProduct = async (data) => {
     const {
       productName,
       category,
-      productHeading,
+      size,
       boxContent,
       price,
-      primaryColor,
+      // primaryColor,
       primaryImg,
       productStatus,
       description,
@@ -113,12 +113,12 @@ function UpdateProduct() {
       const updateFields = {
         product_name: productName,
         category,
-        product_heading: productHeading,
+        size,
         box_content: boxContent,
         price,
-        primary_color: primaryColor,
+        // primary_color: primaryColor,
         primary_img: primaryImg,
-        available_color: value,
+        // available_color: value,
         product_status: productStatus,
         user_email: user?.email,
         user_image: user?.photoURL,
@@ -140,7 +140,7 @@ function UpdateProduct() {
       };
 
       const res = await fetch(
-        `https://shovon-gallery-server.vercel.app/update/product/${singleProduct?._id}`,
+        `https://shadin-organic-server.vercel.app/update/product/${singleProduct?._id}`,
         config
       );
       const data = await res.json();
@@ -166,7 +166,7 @@ function UpdateProduct() {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full mb-16">
       <div className="  max-w-[768px] w-[95%] mx-auto">
         <h2 className="title uppercase p-8 text-center mb-8 bg-secondary text-white text-2xl font-semibold">
           Add Your Product
@@ -177,35 +177,34 @@ function UpdateProduct() {
           className="p-4 rounded-sm shadow-md shadow-primary/10"
         >
           {/* Product Name and Category  */}
+
+          <div className="relative w-full mb-8 group">
+            <label
+              for="floating_name"
+              className=" peer-focus:font-medium absolute text-md pl-2 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-1 -z-10 origin-[0] font-semibold peer-focus:left-0 peer-focus:text-secondary peer-focus:dark:text-secondary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Product Name
+            </label>
+            <input
+              type="text"
+              name="floating_name"
+              id="floating_name"
+              defaultValue={product_name}
+              className={`block shadow-md shadow-primary/10 py-2.5 pl-2 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-secondary focus:outline-none focus:ring-0  peer ${
+                errors.productName
+                  ? "focus:border-red-500 border-red-500"
+                  : "focus:border-secondary"
+              }`}
+              {...register("productName")}
+            />
+
+            {errors.productName && (
+              <span className="text-xs text-red-500">
+                This field is required
+              </span>
+            )}
+          </div>
           <div className="grid gap-5 md:grid-cols-2 md:gap-6">
-            {/* Product name is here  */}
-            <div className="relative w-full mb-8 group">
-              <label
-                for="floating_name"
-                className=" peer-focus:font-medium absolute text-md pl-2 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-1 -z-10 origin-[0] font-semibold peer-focus:left-0 peer-focus:text-secondary peer-focus:dark:text-secondary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-              >
-                Product Name
-              </label>
-              <input
-                type="text"
-                name="floating_name"
-                id="floating_name"
-                defaultValue={product_name}
-                className={`block shadow-md shadow-primary/10 py-2.5 pl-2 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-secondary focus:outline-none focus:ring-0  peer ${
-                  errors.productName
-                    ? "focus:border-red-500 border-red-500"
-                    : "focus:border-secondary"
-                }`}
-                {...register("productName")}
-              />
-
-              {errors.productName && (
-                <span className="text-xs text-red-500">
-                  This field is required
-                </span>
-              )}
-            </div>
-
             {/* product category  */}
             <div className="relative w-full mb-8 group">
               <label
@@ -229,30 +228,24 @@ function UpdateProduct() {
                 ))}
               </select>
             </div>
-          </div>
-          {/* Product  heading  */}
-          <div className="relative w-full mb-8 group">
-            <label
-              for="floating_heading"
-              className="peer-focus:font-medium absolute text-md pl-2 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-1 -z-10 origin-[0] font-semibold peer-focus:left-0 peer-focus:text-secondary peer-focus:dark:text-secondary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-            >
-              Product Heading
-            </label>
-            <input
-              type="text"
-              name="floating_heading"
-              id="floating_heading"
-              defaultValue={product_heading}
-              className={`block shadow-md shadow-primary/10 py-2.5  px-2 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 focus:border-secondary focus:outline-none focus:ring-0  peer `}
-              placeholder=" "
-              {...register("productHeading")}
-            />
 
-            {errors.productHeading && (
-              <span className="text-xs text-red-500">
-                This field is required
-              </span>
-            )}
+            <div className="relative w-full mb-8 group">
+              <label
+                for="floating_heading"
+                className="peer-focus:font-medium absolute text-md pl-2 text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-1 -z-10 origin-[0] font-semibold peer-focus:left-0 peer-focus:text-secondary peer-focus:dark:text-secondary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              >
+                Product Size
+              </label>
+              <input
+                type="text"
+                name="floating_heading"
+                id="floating_heading"
+                defaultValue={singleProduct?.size}
+                className={`block shadow-md shadow-primary/10 py-2.5  px-2 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 focus:border-secondary focus:outline-none focus:ring-0  peer `}
+                placeholder=" "
+                {...register("size")}
+              />
+            </div>
           </div>
 
           {/* Box content & Price  */}
@@ -315,10 +308,8 @@ function UpdateProduct() {
               )}
             </div>
           </div>
-
           {/* Color Variant and Primary product img  */}
-          <div className="grid gap-5 md:grid-cols-2 md:gap-6">
-            {/* Select Color  */}
+          {/* <div className="grid gap-5 md:grid-cols-2 md:gap-6">
             <div className="relative mt-4 w-full group">
               <label
                 for="primaryColor"
@@ -334,26 +325,37 @@ function UpdateProduct() {
                 <option disabled selected>
                   {primary_color}
                 </option>
-                <option value="Red">Red</option>
-                <option value="Blue">Blue</option>
-                <option value="Green">Green</option>
+                <option value="MultiColor">MultiColor</option>
                 <option value="Yellow">Yellow</option>
-                <option value="White">White</option>
-                <option value="Black">Black</option>
-                <option value="Orange">Orange</option>
+                <option value="Red">Red</option>
+                <option value="Magenta">Magenta</option>
                 <option value="Pink">Pink</option>
-                <option value="Purple">Purple</option>
-                <option value="Brown">Brown</option>
-                <option value="Grey">Grey</option>
+                <option value="Orange">Orange</option>
+                <option value="Golden">Golden</option>
+                <option value="White">White</option>
+                <option value="Green">Green</option>
                 <option value="Maroon">Maroon</option>
+                <option value="Blue">Blue</option>
+                <option value="Purple">Purple</option>
+                <option value="Silver">Silver</option>
+                <option value="Grey">Grey</option>
+                <option value="Brown">Brown</option>
+                <option value="Aqua">Aqua</option>
+                <option value="Amber">Amber</option>
+                <option value="Black">Black</option>
+                <option value="Crimson">Crimson</option>
+                <option value="Coral">Coral</option>
                 <option value="Cyan">Cyan</option>
                 <option value="Chocolate">Chocolate</option>
-                <option value="Aqua">Aqua</option>
                 <option value="Lime">Lime</option>
                 <option value="Indigo">Indigo</option>
-                <option value="Golden">Golden</option>
-                <option value="Silver">Silver</option>
                 <option value="Bronze">Bronze</option>
+                <option value="Teal">Teal</option>
+                <option value="Violet">Violet</option>
+                <option value="Khaki">Khaki</option>
+                <option value="Olive">Olive</option>
+                <option value="Navy">Navy</option>
+                <option value="Lavender">Lavender</option>
               </select>
             </div>
             <div className="relative w-full mb-6 group ">
@@ -394,7 +396,7 @@ function UpdateProduct() {
                 onChange={(value) => setValue(value)}
               ></Select>
             </div>
-          </div>
+          </div> */}
           <div className="grid gap-5 md:grid-cols-2 md:gap-6">
             <div className="relative w-full mt-6 mb-6 group">
               <label
@@ -532,7 +534,6 @@ function UpdateProduct() {
               ))}
             </div> */}
           </div>
-
           <div className="flex flex-col items-start mb-6">
             <label
               for="productHighlight"
@@ -554,7 +555,6 @@ function UpdateProduct() {
               </span>
             )}
           </div>
-
           {/* Product description  */}
           <div className="flex flex-col items-start mb-6">
             <label
@@ -578,36 +578,10 @@ function UpdateProduct() {
             )}
           </div>
 
-          <div className="flex items-start mb-6">
-            <div className="flex items-center h-5">
-              <input
-                onChange={() => setAgree(!agree)}
-                id="terms"
-                type="checkbox"
-                value=""
-                className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
-              />
-            </div>
-            <label
-              for="terms"
-              className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-            >
-              I agree with the{" "}
-              <a
-                href="#"
-                className="text-blue-600 hover:underline dark:text-blue-500"
-              >
-                terms and conditions
-              </a>
-            </label>
-          </div>
-
           <button
             type="submit"
-            className={`mt-2 text-white bg-secondary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-secondary/60  font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-secondary dark:hover:bg-secondary dark:focus:ring-secondary/60 transition  duration-300  ${
-              agree && "transform active:translate-y-1"
-            }`}
-            disabled={!agree || loading}
+            className={`mt-2 text-white bg-secondary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-secondary/60  font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-secondary dark:hover:bg-secondary dark:focus:ring-secondary/60 transition  duration-300  ${"transform active:translate-y-1"}`}
+            disabled={loading}
           >
             {loading ? "Uploading..." : "Submit"}
           </button>

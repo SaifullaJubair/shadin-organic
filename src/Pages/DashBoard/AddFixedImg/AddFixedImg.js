@@ -29,7 +29,7 @@ const AddFixedImg = () => {
     currentDate
   );
   useEffect(() => {
-    fetch("https://shovon-gallery-server.vercel.app/allFixedImg")
+    fetch("https://shadin-organic-server.vercel.app/allFixedImg")
       .then((res) => res.json())
       .then((data) => {
         setFixedImg(data);
@@ -64,7 +64,7 @@ const AddFixedImg = () => {
       post_date: formattedDate,
     };
     // console.log(data);
-    fetch("https://shovon-gallery-server.vercel.app/update/fixedImg", {
+    fetch("https://shadin-organic-server.vercel.app/update/fixedImg", {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -100,7 +100,7 @@ const AddFixedImg = () => {
       status,
       post_date: formattedDate,
     };
-    fetch("https://shovon-gallery-server.vercel.app/addFixedImg", {
+    fetch("https://shadin-organic-server.vercel.app/addFixedImg", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -118,7 +118,7 @@ const AddFixedImg = () => {
   };
 
   const handleDelete = (data) => {
-    fetch("https://shovon-gallery-server.vercel.app/deleteFixedImg", {
+    fetch("https://shadin-organic-server.vercel.app/deleteFixedImg", {
       method: "DELETE",
       headers: {
         "content-type": "application/json",

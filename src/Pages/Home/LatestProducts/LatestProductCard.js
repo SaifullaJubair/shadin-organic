@@ -11,13 +11,11 @@ const LatestProductCard = ({ product }) => {
     product_uid,
     product_name,
     category,
-    product_heading,
     box_content,
-    primary_color,
+
     primary_img,
     price,
     product_status,
-    available_color,
     user_email,
     user_image,
     user_name,
@@ -28,7 +26,7 @@ const LatestProductCard = ({ product }) => {
   } = product;
 
   useEffect(() => {
-    fetch(`https://shovon-gallery-server.vercel.app/all-review/${product?._id}`)
+    fetch(`https://shadin-organic-server.vercel.app/all-review/${product?._id}`)
       .then((res) => res.json())
       .then((data) => {
         setReviews(data);
@@ -112,7 +110,9 @@ const LatestProductCard = ({ product }) => {
       <div className="px-5 my-2 pb-5">
         <Link to={`/singleproduct/${_id}`}>
           <h5 className="text-lg font-semibold tracking-tight text-gray-900 dark:text-white">
-            {product_name}
+            {product_name.length > 30
+              ? product_name.slice(0, 30) + "..."
+              : product_name}
           </h5>
           <h5 className="text-sm pt-2 font-semibold tracking-tight text-gray-500 dark:text-white">
             {category}

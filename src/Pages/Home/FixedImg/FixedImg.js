@@ -1,6 +1,6 @@
 import React from "react";
 // import "./FixedImg.css";
-import second from "../../../assets/product-img/Antique Jewellery Set-4.png";
+import second from "../../../assets/product-img/320595792_562811291862410_1281320868492379089_n.jpg";
 import { useState } from "react";
 import { useEffect } from "react";
 import Loader from "../../../Shared/Loader/Loader";
@@ -9,7 +9,7 @@ const FixedImg = () => {
   const [fixedImage, setFixedImg] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    fetch("https://shovon-gallery-server.vercel.app/allFixedImg")
+    fetch("https://shadin-organic-server.vercel.app/allFixedImg")
       .then((res) => res.json())
       .then((data) => {
         // Find the latest active fixed image
@@ -42,7 +42,7 @@ const FixedImg = () => {
     backgroundSize: "100% 100%",
     backgroundRepeat: "no-repeat",
     backgroundAttachment: "fixed",
-    minHeight: "100vh",
+    minHeight: "50vh",
   };
   console.log(fixedImage.length);
   return (
@@ -53,11 +53,13 @@ const FixedImg = () => {
         <div
           className="min-h-screen  bg-no-repeat bg-fixed"
           style={{
-            backgroundImage: `url(https://i.ibb.co/hMKgX7k/Artificial-Flower-Bangles-6-1.jpg)`,
+            backgroundImage: `url(${second})`,
             backgroundSize: "100% 100%",
             backgroundPosition: "center",
           }}
-        ></div>
+        >
+          <div></div>
+        </div>
       )}
     </div>
   );

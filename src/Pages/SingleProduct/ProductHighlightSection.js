@@ -15,12 +15,10 @@ const ProductHighlightSection = ({ singleProduct }) => {
   const [cart, setCart] = useState(false);
   const { user, loading } = useContext(AuthContext);
   const [quantity, setQuantity] = useState(1);
-  const [selectedColor, setSelectedColor] = useState("");
   const [reviews, setReviews] = useState([]);
   const [qna, setQnA] = useState([]);
 
-  const { product_heading, primary_color, price, available_color } =
-    singleProduct;
+  const { product_name, price } = singleProduct;
 
   const handleWishList = (singleProduct) => {
     setWishList((prevState) => !prevState);
@@ -37,7 +35,7 @@ const ProductHighlightSection = ({ singleProduct }) => {
 
     if (wishList) {
       return fetch(
-        `https://shovon-gallery-server.vercel.app/wishlist/${singleProduct?._id}?email=${user?.email}`,
+        `https://shadin-organic-server.vercel.app/wishlist/${singleProduct?._id}?email=${user?.email}`,
         {
           method: "DELETE",
           headers: {
@@ -51,7 +49,7 @@ const ProductHighlightSection = ({ singleProduct }) => {
         })
         .catch((err) => console.log(err));
     } else {
-      return fetch("https://shovon-gallery-server.vercel.app/add-wishlist", {
+      return fetch("https://shadin-organic-server.vercel.app/add-wishlist", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -68,7 +66,7 @@ const ProductHighlightSection = ({ singleProduct }) => {
   useEffect(() => {
     if (!user?.email) return;
     fetch(
-      `https://shovon-gallery-server.vercel.app/wishlist/${singleProduct?._id}?email=${user?.email}`
+      `https://shadin-organic-server.vercel.app/wishlist/${singleProduct?._id}?email=${user?.email}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -78,10 +76,10 @@ const ProductHighlightSection = ({ singleProduct }) => {
       });
   }, [singleProduct?._id, user?.email]);
 
-  const handleColorSelect = (colorName) => {
-    setSelectedColor(colorName);
-    // console.log(colorName);
-  };
+  // const handleColorSelect = (colorName) => {
+  //   setSelectedColor(colorName);
+  //   // console.log(colorName);
+  // };
   const handleAddToCart = () => {
     if (!user?.uid) {
       // User is not logged in, show a toast notification
@@ -96,12 +94,11 @@ const ProductHighlightSection = ({ singleProduct }) => {
       userId: user?.uid,
       userEmail: user?.email,
       userName: user?.displayName,
-      selectedColor: selectedColor,
       quantity: quantity,
     };
     // console.log("cartData:", cartData);
     fetch(
-      `https://shovon-gallery-server.vercel.app/cart/${singleProduct?._id}?email=${user?.email}`
+      `https://shadin-organic-server.vercel.app/cart/${singleProduct?._id}?email=${user?.email}`
     )
       .then((res) => {
         if (!res.ok) {
@@ -121,7 +118,7 @@ const ProductHighlightSection = ({ singleProduct }) => {
           });
         } else {
           // Product is not in the cart, add it to the cart collection
-          fetch("https://shovon-gallery-server.vercel.app/add-cart", {
+          fetch("https://shadin-organic-server.vercel.app/add-cart", {
             method: "POST",
             headers: {
               "content-type": "application/json",
@@ -167,7 +164,7 @@ const ProductHighlightSection = ({ singleProduct }) => {
 
   useEffect(() => {
     fetch(
-      `https://shovon-gallery-server.vercel.app/all-qna/${singleProduct._id}`
+      `https://shadin-organic-server.vercel.app/all-qna/${singleProduct._id}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -181,7 +178,7 @@ const ProductHighlightSection = ({ singleProduct }) => {
 
   useEffect(() => {
     fetch(
-      `https://shovon-gallery-server.vercel.app/all-review/${singleProduct?._id}`
+      `https://shadin-organic-server.vercel.app/all-review/${singleProduct?._id}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -249,7 +246,7 @@ const ProductHighlightSection = ({ singleProduct }) => {
   return (
     <div>
       <h2 className="font-semibold lg:text-2xl md:text-2xl sm:text-xl text:lg  text-gray-800 max-w-screen-md">
-        {product_heading}
+        {product_name}
       </h2>
       {/* review and ans section  */}
       <div className="flex justify-between items-center">
@@ -303,7 +300,7 @@ const ProductHighlightSection = ({ singleProduct }) => {
         </span>
         {price}
       </p>
-      <p className="text-gray-600 mb-4">
+      {/* <p className="text-gray-600 mb-4">
         Product Color : <span className="font-semibold">{primary_color}</span>
       </p>
 
@@ -327,13 +324,19 @@ const ProductHighlightSection = ({ singleProduct }) => {
             ></div>
           </Tooltip>
         ))}
-      </div>
+      </div> */}
+      {singleProduct?.size && (
+        <p className="text-gray-600 mb-4">
+          Product Size :{" "}
+          <span className="font-semibold">{singleProduct?.size}</span>
+        </p>
+      )}
       <hr className="w-full" />
 
       {/* quantity  */}
-      <div className="flex items-center mt-4">
+      <div className="flex items-center mt-6">
         <button
-          className="bg-gray-300 px-4 py-2 rounded-l"
+          className="bg-gray-300 hover:text-white hover:bg-pred duration-300 px-4 py-2 rounded-l"
           onClick={handleDecrement}
         >
           -
@@ -344,7 +347,7 @@ const ProductHighlightSection = ({ singleProduct }) => {
           onChange={handleInputChange}
         />
         <button
-          className="bg-gray-300 px-4 py-2 rounded-r"
+          className="bg-gray-300 hover:text-white hover:bg-pred duration-300 px-4 py-2 rounded-r"
           onClick={handleIncrement}
         >
           +

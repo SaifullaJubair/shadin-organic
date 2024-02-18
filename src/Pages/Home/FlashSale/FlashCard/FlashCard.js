@@ -14,7 +14,6 @@ const FlashCard = ({ product }) => {
     product_uid,
     product_name,
     category,
-    product_heading,
     box_content,
     primary_color,
     primary_img,
@@ -31,7 +30,7 @@ const FlashCard = ({ product }) => {
   } = product;
 
   useEffect(() => {
-    fetch(`https://shovon-gallery-server.vercel.app/all-review/${product?._id}`)
+    fetch(`https://shadin-organic-server.vercel.app/all-review/${product?._id}`)
       .then((res) => res.json())
       .then((data) => {
         setReviews(data);
@@ -116,7 +115,9 @@ const FlashCard = ({ product }) => {
             {category}
           </h5>
           <h2 className="text-lg font-semibold  text-gray-700 dark:text-white ">
-            {product_heading.slice(0, 45) + "..."}
+            {product_name.length > 30
+              ? product_name.slice(0, 30) + "..."
+              : product_name}
           </h2>
 
           <div className="flex flex-wrap items-center mt-2 mb-1 space-x-2">

@@ -27,7 +27,6 @@ const SingleProduct = () => {
     _id,
     product_name,
     category,
-    product_heading,
     box_content,
     primary_color,
     primary_img,
@@ -44,7 +43,7 @@ const SingleProduct = () => {
   // const priceWithCommas = numberWithCommas(price);
 
   useEffect(() => {
-    fetch(`https://shovon-gallery-server.vercel.app/singleproduct/${id}`)
+    fetch(`https://shadin-organic-server.vercel.app/singleproduct/${id}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.error) {
@@ -62,7 +61,7 @@ const SingleProduct = () => {
 
   useEffect(() => {
     fetch(
-      `https://shovon-gallery-server.vercel.app/category/${singleProduct.category}`
+      `https://shadin-organic-server.vercel.app/category/${singleProduct.category}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -174,7 +173,7 @@ const SingleProduct = () => {
           {/* Product Review  */}
           <div>
             <h1 className="bg-gray-50 p-2 my-4 lg:text-lg md:text-lg text-md font-semibold text-gray-700">
-              Ratings & Reviews of {product_heading}
+              Ratings & Reviews of {product_name}
             </h1>
             <ShowReview singleProduct={singleProduct}></ShowReview>
           </div>

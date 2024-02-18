@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import Loader from "../Loader/Loader";
 import { FaCarAlt, FaCartPlus } from "react-icons/fa";
 import { BsCartPlus } from "react-icons/bs";
-import logo from "../../assets/Logo & Cover Photo/Logo & Cover Photo/Shovon Gallery/Logo_Shovon Gallery_01.png";
+import logo from "../../assets/Logo/logo.png";
 const SecondNavbar = () => {
   let [open, setOpen] = useState(false);
   const { user, logout, loading } = useContext(AuthContext);
@@ -15,7 +15,7 @@ const SecondNavbar = () => {
   const [singleUser, setSingleUser] = useState(null);
 
   useEffect(() => {
-    fetch("https://shovon-gallery-server.vercel.app/allcategories")
+    fetch("https://shadin-organic-server.vercel.app/allcategories")
       .then((res) => res.json())
       .then((data) => {
         setCategories(data);
@@ -29,7 +29,7 @@ const SecondNavbar = () => {
     try {
       if (user?.email) {
         const response = await fetch(
-          `https://shovon-gallery-server.vercel.app/singleuser/${user?.email}`
+          `https://shadin-organic-server.vercel.app/singleuser/${user?.email}`
         );
         const data = await response.json();
         setSingleUser(data);
@@ -50,19 +50,18 @@ const SecondNavbar = () => {
   };
 
   return (
-    <div className="sticky top-0 z-40 print:hidden">
-      <div className=" max-w-[1440px]  mx-auto  shadow-xl">
-        <div className="md:flex items-center justify-between bg-white py-2 md:px-10 px-4">
+    <div className="sticky top-0 z-40 print:hidden w-full bg-white shadow-xl">
+      <div className=" max-w-[1600px]  mx-auto  ">
+        <div className="md:flex items-center justify-between bg-white py-2 md:px-0 px-4">
           <Link to="/">
             <div className="font-bold  cursor-pointer flex items-center font-[Poppins] text-gray-900">
               <img
                 src={logo}
                 alt="logo"
-                className="lg:w-16 h-12 md:w-12 w-12"
+                className="lg:w-12 h-12 md:w-12 w-12 rounded-full"
               />
               <span className="text-gray-700 font-semibold ml-2 lg:text-lg md:text-sm text-lg">
-                <span className="text-red-500 font-bold">S</span>hovon{" "}
-                <span className="text-red-500 font-bold">G</span>allery
+                Shadin Organic
               </span>
             </div>
           </Link>
@@ -169,14 +168,14 @@ const SecondNavbar = () => {
                 About
               </NavLink>
             </li> */}
-            <li className="mb-2 md:mb-0 lg:mb-0">
+            {/* <li className="mb-2 md:mb-0 lg:mb-0">
               <NavLink
                 to="/contact"
                 className="md:ml-8 text-md font-semibold md:my-0  text-gray-900 border-b-2 border-transparent hover:border-red-700 hover:text-red-700 duration-500"
               >
                 ContactUs
               </NavLink>
-            </li>
+            </li> */}
             <li className="mb-2 md:mb-0 lg:mb-0 ml-auto md:ml-0">
               <NavLink
                 to="/cart"

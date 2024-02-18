@@ -10,7 +10,7 @@ const Suggest = ({ suggestProduct, singleProduct }) => {
   const [reviews, setReviews] = useState([]);
   useEffect(() => {
     fetch(
-      `https://shovon-gallery-server.vercel.app/all-review/${singleProduct?._id}`
+      `https://shadin-organic-server.vercel.app/all-review/${singleProduct?._id}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -103,7 +103,7 @@ const Suggest = ({ suggestProduct, singleProduct }) => {
                 {product?.category}
               </h5>
               <h2 className="text-lg font-semibold  text-gray-700 dark:text-white ">
-                {product?.product_heading?.slice(0, 45) + "..."}
+                {product?.product_name?.slice(0, 45) + "..."}
               </h2>
 
               <div className="flex my-1.5 flex-wrap text-xs space-x-2">

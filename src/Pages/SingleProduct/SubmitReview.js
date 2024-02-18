@@ -17,7 +17,6 @@ const SubmitReview = ({ singleProduct, refetch }) => {
     _id,
     product_name,
     category,
-    product_heading,
     box_content,
     primary_color,
     primary_img,
@@ -88,7 +87,7 @@ const SubmitReview = ({ singleProduct, refetch }) => {
       postDate: formattedDate,
     };
     fetch(
-      `https://shovon-gallery-server.vercel.app/review/${singleProduct?._id}?email=${user?.email}`
+      `https://shadin-organic-server.vercel.app/review/${singleProduct?._id}?email=${user?.email}`
     )
       .then((res) => {
         if (!res.ok) {
@@ -108,7 +107,7 @@ const SubmitReview = ({ singleProduct, refetch }) => {
           });
         } else {
           // Perform the API call to submit the review
-          fetch("https://shovon-gallery-server.vercel.app/submit-review", {
+          fetch("https://shadin-organic-server.vercel.app/submit-review", {
             method: "POST",
             headers: {
               "content-type": "application/json",

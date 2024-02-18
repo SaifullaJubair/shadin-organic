@@ -31,9 +31,10 @@ const AllProductsDashboard = () => {
   const [toggleStates, setToggleStates] = useState({});
   const { user, loading } = useContext(AuthContext);
   const [itemOffset, setItemOffset] = useState(0);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
-    fetch("https://shovon-gallery-server.vercel.app/products")
+    fetch("https://shadin-organic-server.vercel.app/products")
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);
@@ -48,7 +49,7 @@ const AllProductsDashboard = () => {
 
   const handleDeleteProduct = (product) => {
     fetch(
-      `https://shovon-gallery-server.vercel.app/singleproduct/${product?._id}`,
+      `https://shadin-organic-server.vercel.app/singleproduct/${product?._id}`,
       {
         method: "DELETE",
       }
@@ -84,7 +85,7 @@ const AllProductsDashboard = () => {
       };
 
       const response = await fetch(
-        `https://shovon-gallery-server.vercel.app/update/product/${product._id}`,
+        `https://shadin-organic-server.vercel.app/update/product/${product._id}`,
         {
           method: "PATCH",
           headers: {
@@ -113,15 +114,28 @@ const AllProductsDashboard = () => {
     }
   };
 
+  let searchData;
+  if (search) {
+    searchData = products?.filter(
+      (product) =>
+        product.product_name.toLowerCase().includes(search.toLowerCase()) ||
+        product.category.toLowerCase().includes(search.toLowerCase()) ||
+        product.price.toLowerCase().includes(search.toLowerCase()) ||
+        product._id.includes(search)
+    );
+  } else {
+    searchData = products;
+  }
+
   const itemsPerPage = 8;
 
   const endOffset = itemOffset + itemsPerPage;
 
-  const currentItems = products.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(products.length / itemsPerPage);
+  const currentItems = searchData.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(searchData.length / itemsPerPage);
 
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % products.length;
+    const newOffset = (event.selected * itemsPerPage) % searchData.length;
     // console.log(
     //     `User requested page number ${event.selected}, which is offset ${newOffset}`
     // );
@@ -146,6 +160,23 @@ const AllProductsDashboard = () => {
         <h2 className="title uppercase p-10 text-center mb-10 bg-secondary text-white text-2xl font-semibold">
           All Users{" "}
         </h2>
+
+        <div className="my-6 mx-2">
+          <div className="mb-2 block">
+            <Label name="search" className="text-gray-800 text-lg ">
+              Search product...
+            </Label>
+          </div>
+          <TextInput
+            id="search"
+            placeholder=" Search product by name or category or color or price or id"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            type="text"
+            className="max-w-xl w-11/12"
+          />
+        </div>
+
         <Table striped={true}>
           <Table.Head>
             <Table.HeadCell>#</Table.HeadCell>
@@ -153,7 +184,6 @@ const AllProductsDashboard = () => {
             <Table.HeadCell>Title</Table.HeadCell>
             <Table.HeadCell>Category</Table.HeadCell>
             <Table.HeadCell>Price</Table.HeadCell>
-            <Table.HeadCell>Color</Table.HeadCell>
             <Table.HeadCell>Post Date</Table.HeadCell>
             <Table.HeadCell>Status</Table.HeadCell>
             <Table.HeadCell>Action</Table.HeadCell>
@@ -174,10 +204,14 @@ const AllProductsDashboard = () => {
                     alt=""
                   />
                 </Table.Cell>
-                <Table.Cell>{product.product_name}</Table.Cell>
+                <Table.Cell className="w-80 flex flex-nowrap">
+                  {product.product_name.length > 50
+                    ? product.product_name.slice(0, 50) + "..."
+                    : product.product_name}
+                  {product?.size && <p className="ml-2">({product?.size})</p>}
+                </Table.Cell>
                 <Table.Cell>{product.category}</Table.Cell>
                 <Table.Cell>{product.price}</Table.Cell>
-                <Table.Cell>{product.primary_color}</Table.Cell>
                 <Table.Cell>{product.post_date.slice(0, 11)}</Table.Cell>
                 <Table.Cell>
                   {/* toggle button */}
@@ -293,7 +327,10 @@ const AllProductsDashboard = () => {
                             </svg>
                             <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
                               Are you sure you want to delete this{" "}
-                              {product.product_name} Product?
+                              {product.product_name.length > 50
+                                ? product.product_name.slice(0, 50) + "..."
+                                : product.product_name}{" "}
+                              Product?
                             </h3>
                             <button
                               onClick={() => handleDeleteProduct(deleteData)}

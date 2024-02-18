@@ -84,7 +84,7 @@ const Register = () => {
       createdAt: formattedDate,
     };
     console.log(user);
-    fetch("https://shovon-gallery-server.vercel.app/adduser", {
+    fetch("https://shadin-organic-server.vercel.app/adduser", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -161,7 +161,7 @@ const Register = () => {
               .then((result) => {
                 // const users =  { name, email, password, createdAt: new Date().toISOString(), photoURL: data?.data?.display_url };
                 // console.log(result)
-                fetch("https://shovon-gallery-server.vercel.app/adduser", {
+                fetch("https://shadin-organic-server.vercel.app/adduser", {
                   method: "POST",
                   headers: {
                     "content-type": "application/json",
@@ -220,245 +220,247 @@ const Register = () => {
   };
 
   return (
-    <div className="md:mx-6">
-      <div className="w-full justify-around my-8 lg:flex">
-        <div className="w-full text-center text-xl font-bold flex flex-col justify-center items-center">
-          {/* <h2 className="text-2xl text-black my-auto">Welcome To Our Page</h2> */}
-          <img
-            src="https://i.ibb.co/FDFvSHx/119048-login-verification.gif"
-            alt=""
-          />
-        </div>
-        <div className=" bg-red-5 md:px-10 px-4 py-4 my-8 lg:w-4/5">
-          <h1 className="text-black text-5xl font-bold mb-5 text-center ">
-            Sign Up
-          </h1>
-          <form
-            onSubmit={handleSubmit(handleRegister)}
-            className="flex flex-col gap-4"
-          >
-            {/* name  */}
-            <div className="relative w-full mb-6 group">
-              <input
-                type="text"
-                name="floating_name"
-                id="floating_name"
-                className={`block shadow-md shadow-primary/10 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-secondary focus:outline-none pl-2 focus:ring-0  peer ${
-                  errors.name
-                    ? "focus:border-red-500 border-red-500"
-                    : "focus:border-secondary"
-                }`}
-                placeholder=" "
-                {...register("name", { required: true })}
-              />
+    <div className="max-w-[1440px] mx-auto">
+      <div className="md:mx-6">
+        <div className="w-full justify-around my-8 lg:flex">
+          <div className="w-full text-center text-xl font-bold flex flex-col justify-center items-center">
+            {/* <h2 className="text-2xl text-black my-auto">Welcome To Our Page</h2> */}
+            <img
+              src="https://i.ibb.co/FDFvSHx/119048-login-verification.gif"
+              alt=""
+            />
+          </div>
+          <div className=" bg-red-5 md:px-10 px-4 py-4 my-8 lg:w-4/5">
+            <h1 className="text-black text-5xl font-bold mb-5 text-center ">
+              Sign Up
+            </h1>
+            <form
+              onSubmit={handleSubmit(handleRegister)}
+              className="flex flex-col gap-4"
+            >
+              {/* name  */}
+              <div className="relative w-full mb-6 group">
+                <input
+                  type="text"
+                  name="floating_name"
+                  id="floating_name"
+                  className={`block shadow-md shadow-primary/10 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-secondary focus:outline-none pl-2 focus:ring-0  peer ${
+                    errors.name
+                      ? "focus:border-red-500 border-red-500"
+                      : "focus:border-secondary"
+                  }`}
+                  placeholder=" "
+                  {...register("name", { required: true })}
+                />
 
-              <label
-                for="floating_name"
-                className="pl-2 peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-secondary peer-focus:dark:text-secondary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-              >
-                Name
-              </label>
-              {errors.name && (
-                <span className="text-xs text-red-500">
-                  This field is required
-                </span>
-              )}
-            </div>
-            {/* email  */}
-            <div className="relative w-full mb-6 group">
-              <input
-                type="email"
-                name="floating_email"
-                id="floating_email"
-                className={`block shadow-md shadow-primary/10 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-secondary focus:outline-none pl-2 focus:ring-0  peer ${
-                  errors.email
-                    ? "focus:border-red-500 border-red-500"
-                    : "focus:border-secondary"
-                }`}
-                placeholder=" "
-                {...register("email", { required: true })}
-              />
-
-              <label
-                for="floating_email"
-                className="pl-2 peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-secondary peer-focus:dark:text-secondary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-              >
-                Enter your email
-              </label>
-              {errors.email && (
-                <span className="text-xs text-red-500">
-                  This field is required
-                </span>
-              )}
-            </div>
-            {/* photo */}
-            <div className="relative w-full mb-6 group">
-              <input
-                type="file"
-                name="floating_image"
-                id="floating_image"
-                className={`block shadow-md shadow-primary/10 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-secondary focus:outline-none pl-2 focus:ring-0  peer ${
-                  errors.photo
-                    ? "focus:border-red-500 border-red-500"
-                    : "focus:border-secondary"
-                }`}
-                placeholder=" "
-                {...register("photo", { required: true })}
-              />
-
-              <label
-                for="floating_image"
-                className="pl-2 peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-secondary peer-focus:dark:text-secondary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-              >
-                Upload Profile Picture
-              </label>
-              {errors.photo && (
-                <span className="text-xs text-red-500">
-                  This field is required
-                </span>
-              )}
-            </div>
-
-            <div className="relative w-full mb-6 group">
-              <input
-                type="password"
-                name="floating_password"
-                id="floating_password"
-                className={`block shadow-md shadow-primary/10 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-secondary focus:outline-none pl-2 focus:ring-0  peer ${
-                  errors.password
-                    ? "focus:border-red-500 border-red-500"
-                    : "focus:border-secondary"
-                }`}
-                placeholder=" "
-                {...register("password", {
-                  required: "Password is required",
-                  minLength: {
-                    value: 6,
-                    message: "Password must be 6 characters long",
-                  },
-                  pattern: {
-                    value: /(?=.*[A-Z])(?=.*[0-9])/,
-                    message:
-                      "Password must have uppercase, number and special characters",
-                  },
-                })}
-              />
-              {errors.password && (
-                <p className="text-red-500">{errors.password.message}</p>
-              )}
-              <label
-                for="floating_password"
-                className="pl-2 peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-secondary peer-focus:dark:text-secondary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-              >
-                Enter your password
-              </label>
-              {errors.password && (
-                <span className="text-xs text-red-500">
-                  This field is required
-                </span>
-              )}
-            </div>
-            {/* repeat password  */}
-            <div className="relative w-full mb-6 group">
-              <input
-                type="password"
-                name="floating_password2"
-                id="floating_password2"
-                className={`block shadow-md shadow-primary/10 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-secondary focus:outline-none pl-2 focus:ring-0  peer ${
-                  errors.password2
-                    ? "focus:border-red-500 border-red-500"
-                    : "focus:border-secondary"
-                }`}
-                placeholder=" "
-                {...register("password2", { required: true })}
-              />
-
-              <label
-                for="floating_password2"
-                className="pl-2 peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-secondary peer-focus:dark:text-secondary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-              >
-                Re-enter your password
-              </label>
-              {errors.password2 && (
-                <span className="text-xs text-red-500">
-                  This field is required
-                </span>
-              )}
-            </div>
-
-            {/* Error show  */}
-            {error && <p className="text-red-500">{error}</p>}
-            {/* check box / mark  */}
-            <div className="flex items-center gap-2">
-              <Checkbox
-                onClick={termsAndCondition}
-                id="agree"
-                type="checkbox"
-              />
-              <Label htmlFor="agree">
-                I agree with the{" "}
-                <Link
-                  to="/login"
-                  className="text-blue-600 hover:underline dark:text-blue-500"
+                <label
+                  for="floating_name"
+                  className="pl-2 peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-secondary peer-focus:dark:text-secondary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                 >
-                  terms and conditions
+                  Name
+                </label>
+                {errors.name && (
+                  <span className="text-xs text-red-500">
+                    This field is required
+                  </span>
+                )}
+              </div>
+              {/* email  */}
+              <div className="relative w-full mb-6 group">
+                <input
+                  type="email"
+                  name="floating_email"
+                  id="floating_email"
+                  className={`block shadow-md shadow-primary/10 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-secondary focus:outline-none pl-2 focus:ring-0  peer ${
+                    errors.email
+                      ? "focus:border-red-500 border-red-500"
+                      : "focus:border-secondary"
+                  }`}
+                  placeholder=" "
+                  {...register("email", { required: true })}
+                />
+
+                <label
+                  for="floating_email"
+                  className="pl-2 peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-secondary peer-focus:dark:text-secondary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                >
+                  Enter your email
+                </label>
+                {errors.email && (
+                  <span className="text-xs text-red-500">
+                    This field is required
+                  </span>
+                )}
+              </div>
+              {/* photo */}
+              <div className="relative w-full mb-6 group">
+                <input
+                  type="file"
+                  name="floating_image"
+                  id="floating_image"
+                  className={`block shadow-md shadow-primary/10 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-secondary focus:outline-none pl-2 focus:ring-0  peer ${
+                    errors.photo
+                      ? "focus:border-red-500 border-red-500"
+                      : "focus:border-secondary"
+                  }`}
+                  placeholder=" "
+                  {...register("photo", { required: true })}
+                />
+
+                <label
+                  for="floating_image"
+                  className="pl-2 peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-secondary peer-focus:dark:text-secondary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                >
+                  Upload Profile Picture
+                </label>
+                {errors.photo && (
+                  <span className="text-xs text-red-500">
+                    This field is required
+                  </span>
+                )}
+              </div>
+
+              <div className="relative w-full mb-6 group">
+                <input
+                  type="password"
+                  name="floating_password"
+                  id="floating_password"
+                  className={`block shadow-md shadow-primary/10 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-secondary focus:outline-none pl-2 focus:ring-0  peer ${
+                    errors.password
+                      ? "focus:border-red-500 border-red-500"
+                      : "focus:border-secondary"
+                  }`}
+                  placeholder=" "
+                  {...register("password", {
+                    required: "Password is required",
+                    minLength: {
+                      value: 6,
+                      message: "Password must be 6 characters long",
+                    },
+                    pattern: {
+                      value: /(?=.*[A-Z])(?=.*[0-9])/,
+                      message:
+                        "Password must have uppercase, number and special characters",
+                    },
+                  })}
+                />
+                {errors.password && (
+                  <p className="text-red-500">{errors.password.message}</p>
+                )}
+                <label
+                  for="floating_password"
+                  className="pl-2 peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-secondary peer-focus:dark:text-secondary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                >
+                  Enter your password
+                </label>
+                {errors.password && (
+                  <span className="text-xs text-red-500">
+                    This field is required
+                  </span>
+                )}
+              </div>
+              {/* repeat password  */}
+              <div className="relative w-full mb-6 group">
+                <input
+                  type="password"
+                  name="floating_password2"
+                  id="floating_password2"
+                  className={`block shadow-md shadow-primary/10 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-secondary focus:outline-none pl-2 focus:ring-0  peer ${
+                    errors.password2
+                      ? "focus:border-red-500 border-red-500"
+                      : "focus:border-secondary"
+                  }`}
+                  placeholder=" "
+                  {...register("password2", { required: true })}
+                />
+
+                <label
+                  for="floating_password2"
+                  className="pl-2 peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-secondary peer-focus:dark:text-secondary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                >
+                  Re-enter your password
+                </label>
+                {errors.password2 && (
+                  <span className="text-xs text-red-500">
+                    This field is required
+                  </span>
+                )}
+              </div>
+
+              {/* Error show  */}
+              {error && <p className="text-red-500">{error}</p>}
+              {/* check box / mark  */}
+              <div className="flex items-center gap-2">
+                <Checkbox
+                  onClick={termsAndCondition}
+                  id="agree"
+                  type="checkbox"
+                />
+                <Label htmlFor="agree">
+                  I agree with the{" "}
+                  <Link
+                    to="/login"
+                    className="text-blue-600 hover:underline dark:text-blue-500"
+                  >
+                    terms and conditions
+                  </Link>
+                </Label>{" "}
+              </div>
+              <p className="flex items-center gap-2">
+                Already have an account?
+                <Link className="text-blue-500 underline" to="/login">
+                  Login
                 </Link>
-              </Label>{" "}
-            </div>
-            <p className="flex items-center gap-2">
-              Already have an account?
-              <Link className="text-blue-500 underline" to="/login">
-                Login
-              </Link>
-            </p>
+              </p>
 
-            {loading ? (
-              <Loader></Loader>
-            ) : (
-              <Button
-                className=" lg:mx-auto w-full bg-secondary hover:bg-primary"
-                disabled={!termsAccepted}
-                type="submit"
-              >
-                Register
-              </Button>
-            )}
+              {loading ? (
+                <Loader></Loader>
+              ) : (
+                <Button
+                  className=" lg:mx-auto w-full bg-secondary hover:bg-primary"
+                  disabled={!termsAccepted}
+                  type="submit"
+                >
+                  Register
+                </Button>
+              )}
 
-            <div className="flex justify-between  py-4">
-              <div className="flex w-full">
-                <div className="flex flex-col w-full border-opacity-50">
-                  <div className="text-xs text-black text-center z-10 inline-block font-semibold">
-                    Or Continue With
-                  </div>
-                  <hr className="border -mt-2" />
-                  <div className="grid w-full card  rounded-box place-items-center pt-8">
-                    <div className="flex gap-4 w-full">
-                      <Button
-                        outline={true}
-                        className="hover:text-white text-3xl w-full bg-secondary"
-                        onClick={handleGoogleSignIn}
-                      >
-                        <span className="flex items-center justify-center font-bold hover:text-white focus:text-white w-full">
-                          <FcGoogle className="mr-2 text-xl" />
-                          Google
-                        </span>
-                      </Button>
-                      <Button
-                        outline={true}
-                        className="text-3xl w-full bg-primary"
-                        // onClick={handleFacebookLogin}
-                      >
-                        <span className="flex items-center justify-center font-bold hover:text-white focus:text-white w-full">
-                          <CiFacebook className="mr-2 text-xl font-bold" />
-                          Facebook
-                        </span>
-                      </Button>
+              <div className="flex justify-between  py-4">
+                <div className="flex w-full">
+                  <div className="flex flex-col w-full border-opacity-50">
+                    <div className="text-xs text-black text-center z-10 inline-block font-semibold">
+                      Or Continue With
+                    </div>
+                    <hr className="border -mt-2" />
+                    <div className="grid w-full card  rounded-box place-items-center pt-8">
+                      <div className="flex gap-4 w-full">
+                        <Button
+                          outline={true}
+                          className="hover:text-white text-3xl w-full bg-secondary"
+                          onClick={handleGoogleSignIn}
+                        >
+                          <span className="flex items-center justify-center font-bold hover:text-white focus:text-white w-full">
+                            <FcGoogle className="mr-2 text-xl" />
+                            Google
+                          </span>
+                        </Button>
+                        <Button
+                          outline={true}
+                          className="text-3xl w-full bg-primary"
+                          // onClick={handleFacebookLogin}
+                        >
+                          <span className="flex items-center justify-center font-bold hover:text-white focus:text-white w-full">
+                            <CiFacebook className="mr-2 text-xl font-bold" />
+                            Facebook
+                          </span>
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     </div>

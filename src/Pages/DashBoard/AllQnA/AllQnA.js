@@ -25,7 +25,7 @@ import ReactPaginate from "react-paginate";
 import Loader from "../../../Shared/Loader/Loader";
 import { Link } from "react-router-dom";
 
-const MyQnA = () => {
+const AllQnA = () => {
   const { user } = useContext(AuthContext);
 
   const [qna, setQnA] = useState([]);
@@ -35,24 +35,20 @@ const MyQnA = () => {
   // console.log(editData?._id)
 
   useEffect(() => {
-    if (user?.email) {
-      fetch(
-        `https://shadin-organic-server.vercel.app/dashboard/all-qna/${user?.email}`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          setQnA(data);
-          console.log(data);
-        });
-    }
-  }, [user?.email, refetch]);
+    fetch("https://shadin-organic-server.vercel.app/all-qna")
+      .then((res) => res.json())
+      .then((data) => {
+        setQnA(data);
+      });
+  }, [refetch]);
 
   const itemsPerPage = 8;
 
   const endOffset = itemOffset + itemsPerPage;
 
-  const currentItems = qna.slice(itemOffset, endOffset);
+  const currentItems = qna?.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(qna.length / itemsPerPage);
+  console.log(currentItems);
 
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % qna.length;
@@ -66,13 +62,13 @@ const MyQnA = () => {
       <div className="mx-auto flex-grow overflow-x-auto">
         {qna ? (
           <h2 className="title uppercase p-10 text-center mb-10 bg-secondary text-white text-2xl font-semibold">
-            My QnA{" "}
+            All QnA{" "}
           </h2>
         ) : (
           <Loader></Loader>
         )}
         {qna?.length ? (
-          <p></p>
+          <p> </p>
         ) : (
           <p className="text-2xl mt-16 text-center text-orange-500 ">
             You have No QnA
@@ -138,4 +134,4 @@ const MyQnA = () => {
   );
 };
 
-export default MyQnA;
+export default AllQnA;

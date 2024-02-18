@@ -8,7 +8,7 @@ const useAdmin = (email) => {
       const checkAdmin = async function () {
         try {
           const res = await fetch(
-            `https://shovon-gallery-server.vercel.app/users/checkAdmin?email=${email}`
+            `https://shadin-organic-server.vercel.app/users/checkAdmin?email=${email}`
           );
 
           const data = await res.json();

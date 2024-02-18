@@ -11,7 +11,7 @@ const AllUsers = () => {
   const [editData, setEditData] = useState(null);
 
   useEffect(() => {
-    fetch("https://shovon-gallery-server.vercel.app/users")
+    fetch("https://shadin-organic-server.vercel.app/users")
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);
@@ -23,7 +23,7 @@ const AllUsers = () => {
     e.preventDefault();
     const role = e.target.role.value;
     fetch(
-      `https://shovon-gallery-server.vercel.app/users/update/${editData._id}`,
+      `https://shadin-organic-server.vercel.app/users/update/${editData._id}`,
       {
         method: "POST",
         headers: {
@@ -45,7 +45,7 @@ const AllUsers = () => {
   };
 
   const handleDeleteUser = (user) => {
-    fetch(`https://shovon-gallery-server.vercel.app/users/${user?._id}`, {
+    fetch(`https://shadin-organic-server.vercel.app/users/${user?._id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
