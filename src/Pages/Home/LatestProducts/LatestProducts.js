@@ -23,7 +23,7 @@ const LatestProducts = () => {
       });
   }, []);
 
-  console.log("Tranding products", products);
+  // console.log("Tranding products", products);
   return (
     <div className="max-w-[1440px] mx-auto">
       <div>
