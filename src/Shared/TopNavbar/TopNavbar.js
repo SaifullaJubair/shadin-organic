@@ -20,7 +20,7 @@ const TopNavbar = () => {
   // const {user} = useContext(AuthContext);
   return (
     <div className="bg-pDark w-full h-12 hidden md:inline-block print:hidden">
-      <div className="max-w-[1600px]  mx-auto flex justify-between">
+      <div className="max-w-[1600px] w-[95%] mx-auto flex justify-between">
         {/* Contact section */}
         <div className="flex space-x-5 py-4">
           <div className="flex items-center justify-center">
@@ -47,7 +47,10 @@ const TopNavbar = () => {
         {/* Signin/signup & social media section */}
         <div className="flex items-center justify-center space-x-4 ">
           <div className="text-blue-600 font-semibold  ">
-            <Link to="https://www.facebook.com/shadinorganicbd/">
+            <Link
+              to="https://www.facebook.com/shadinorganicbd/"
+              target="_blank"
+            >
               <img
                 src="https://i.ibb.co/3svdqMq/icons8-facebook-48.png"
                 className="w-6 h-6"
@@ -57,7 +60,7 @@ const TopNavbar = () => {
           </div>
 
           <div className=" ">
-            <Link to={"https://www.instagram.com"}>
+            <Link to={"https://www.instagram.com"} target="_blank">
               <img
                 src="https://i.ibb.co/5nGDypW/icons8-instagram-48.png"
                 className="w-6 h-6"
@@ -69,7 +72,10 @@ const TopNavbar = () => {
           {/* whatsApp */}
 
           <div className=" ">
-            <Link to={"https://api.whatsapp.com/send?phone=8801760819195"}>
+            <Link
+              to={"https://api.whatsapp.com/send?phone=8801760819195"}
+              target="_blank"
+            >
               <img
                 src="https://i.ibb.co/n36N75q/icons8-whatsapp-messenger-is-a-freeware-cross-platform-messaging-and-voice-over-ip-service-48.png"
                 alt=""

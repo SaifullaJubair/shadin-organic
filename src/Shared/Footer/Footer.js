@@ -106,7 +106,10 @@ const Footer = () => {
               </div>
               <div className="flex justify-center pt-4 space-x-4 lg:pt-0 lg:col-end-13">
                 <div className="text-blue-600 font-semibold  ">
-                  <Link to="https://www.facebook.com/shadinorganicbd/">
+                  <Link
+                    to="https://www.facebook.com/shadinorganicbd/"
+                    target="_blank"
+                  >
                     <img
                       src="https://i.ibb.co/3svdqMq/icons8-facebook-48.png"
                       className="w-6 h-6"
@@ -115,7 +118,7 @@ const Footer = () => {
                   </Link>
                 </div>
                 <div className=" ">
-                  <Link to={"https://www.instagram.com"}>
+                  <Link to={"https://www.instagram.com"} target="_blank">
                     <img
                       src="https://i.ibb.co/5nGDypW/icons8-instagram-48.png"
                       className="w-6 h-6"
@@ -127,6 +130,7 @@ const Footer = () => {
                 <div className=" ">
                   <Link
                     to={"https://api.whatsapp.com/send?phone=8801760819195"}
+                    target="_blank"
                   >
                     <img
                       src="https://i.ibb.co/n36N75q/icons8-whatsapp-messenger-is-a-freeware-cross-platform-messaging-and-voice-over-ip-service-48.png"

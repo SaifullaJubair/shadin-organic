@@ -105,7 +105,7 @@ const Banner = () => {
     // </div>
 
     <div className="max-w-[1440px] mx-auto">
-      <div className="xl:h-[880px] lg:h-[820px] md:h-[500px] h-[400px] mx w-full ">
+      <div className="lg:h-[384px] md:h-[288px] sm:h-[240px] xl:h-[480px] 2xl:h-[560px] h-[200px]  w-full ">
         {isLoading ? (
           <Loader />
         ) : bannerImg.length > 1 ? (

@@ -36,25 +36,26 @@ const FixedImg = () => {
   if (isLoading) {
     <Loader />;
   }
-  console.log(fixedImage);
+  // console.log(fixedImage);
   const backgroundImageStyle = {
-    backgroundImage: `url(${fixedImage[0]?.fixedImg})`,
-    backgroundSize: "100% 100%",
+    backgroundImage: `linear-gradient(to top, #000000, 70%, transparent),url(${fixedImage[0]?.fixedImg})`,
+    backgroundSize: "100% 90%",
     backgroundRepeat: "no-repeat",
     backgroundAttachment: "fixed",
     minHeight: "50vh",
   };
-  console.log(fixedImage.length);
+  // console.log(fixedImage.length);
   return (
     <div className="hidden md:block lg:block">
       {fixedImage?.length > 0 ? (
         <div className="my-16 " style={backgroundImageStyle}></div>
       ) : (
         <div
-          className="min-h-screen  bg-no-repeat bg-fixed"
+          className="min-h-[50vh]  bg-no-repeat bg-fixed"
           style={{
-            backgroundImage: `url(${second})`,
-            backgroundSize: "100% 100%",
+            backgroundImage: `linear-gradient(to top, #000000, 70%, transparent),url(${second})`,
+
+            backgroundSize: "100% 90%",
             backgroundPosition: "center",
           }}
         >

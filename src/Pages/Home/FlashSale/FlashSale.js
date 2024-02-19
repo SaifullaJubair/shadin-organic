@@ -8,6 +8,7 @@ import FlashSaleTitleSection from "./FlashTitle";
 import FlashCard from "./FlashCard/FlashCard";
 import { Button } from "flowbite-react";
 import { Link } from "react-router-dom";
+import LatestProductCard from "../LatestProducts/LatestProductCard";
 const OurProduct = () => {
   const [products, setProducts] = useState([]);
 
@@ -29,7 +30,7 @@ const OurProduct = () => {
   return (
     <div className="max-w-[1440px] mx-auto">
       <div className=" mx-auto my-16">
-        <div className="flex md:flex-col lg:flex-col xl:flex-col 2xl-flex-row flex-col md:mx-7 mx-6">
+        <div className="flex md:flex-col lg:flex-col xl:flex-col 2xl-flex-row flex-col md:mx-7 mx-2">
           <div>
             {/* flash sate title  */}
             <div className="">
@@ -43,9 +44,12 @@ const OurProduct = () => {
             </div> */}
             </div>
             {/* flash sale card section  */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 justify-items-center md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  mt-6 gap-4 ">
+            <div className="grid grid-cols-2 sm:grid-cols-2 justify-items-center md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4  mt-6 gap-2 md:gap-4  ">
               {products.map((product) => (
-                <FlashCard key={product?._id} product={product}></FlashCard>
+                <LatestProductCard
+                  key={product?._id}
+                  product={product}
+                ></LatestProductCard>
               ))}
             </div>
           </div>

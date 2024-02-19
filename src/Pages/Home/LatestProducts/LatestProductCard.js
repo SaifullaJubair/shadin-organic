@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import FlashCarousel from "../FlashSale/FlashCarousel";
 import { Link } from "react-router-dom";
 import { FaRegStar, FaStar } from "react-icons/fa";
+import { Button } from "flowbite-react";
 const LatestProductCard = ({ product }) => {
   const [isHovering, setIsHovering] = useState(false);
   const [reviews, setReviews] = useState([]);
@@ -92,8 +93,9 @@ const LatestProductCard = ({ product }) => {
   const averageRating = calculateAverageRating(reviews);
   return (
     <div
-      className="lg:w-[300px] md:w-[300px] w-[280px] my-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mx-auto 
-    "
+      className="w-full my-4 bg-white border  border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mx-auto
+      "
+      // className="w-full"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
@@ -102,35 +104,46 @@ const LatestProductCard = ({ product }) => {
           <FlashCarousel product={product}></FlashCarousel>
         </div>
       ) : (
-        <div className=" h-60">
-          <img className=" w-full h-full" src={primary_img} alt="" />
+        <div className=" h-60  ">
+          <img
+            className="rounded-t-lg w-full h-full "
+            src={primary_img}
+            alt=""
+          />
         </div>
       )}
 
-      <div className="px-5 my-2 pb-5">
+      <div className="px-5 my-2 pb-2">
         <Link to={`/singleproduct/${_id}`}>
-          <h5 className="text-lg font-semibold tracking-tight text-gray-900 dark:text-white">
-            {product_name.length > 30
-              ? product_name.slice(0, 30) + "..."
+          <h5 className=" text-sm md:text-base font-semibold text-left tracking-tighter text-gray-900 dark:text-white">
+            {product_name.length > 20
+              ? product_name.slice(0, 20) + "..."
               : product_name}
           </h5>
-          <h5 className="text-sm pt-2 font-semibold tracking-tight text-gray-500 dark:text-white">
+          <h5 className="text-xs  md:text-sm  pt-2 text-left font-semibold tracking-tight text-gray-500 dark:text-white">
             {category}
           </h5>
 
-          <div className="flex flex-wrap items-center mt-2 mb-1 space-x-2">
+          <div className="flex flex-wrap items-center text-sm  mt-2 mb-1 space-x-2">
             <div className="flex items-center">
               {renderStars(averageRating)}
             </div>
             <span className="text-gray-600">{averageRating.toFixed(1)}</span>
           </div>
-          <div className="flex items-center justify-between">
-            <span className="text-3xl font-bold text-gray-900 dark:text-white">
+          <div className="flex items-center justify-between ">
+            <span className="lg:text-2xl md:text-xl  text-xl font-bold text-gray-900 dark:text-white">
               {price}
               <span className="font-bold">৳</span>
             </span>
-            <div className=" text-white bg-blue-700 hover:bg-secondary duration-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-              Details
+            <div className="mt-2">
+              <Link to={`/singleproduct/${_id}`}>
+                <Button
+                  size="xs"
+                  className="bg-secondary  hover:bg-secondary/80 hover:duration-200 text-white font-semibold"
+                >
+                  Details
+                </Button>
+              </Link>
             </div>
           </div>
         </Link>

@@ -51,15 +51,11 @@ const SecondNavbar = () => {
 
   return (
     <div className="sticky top-0 z-40 print:hidden w-full bg-white shadow-xl">
-      <div className=" max-w-[1600px]  mx-auto  ">
+      <div className=" max-w-[1600px] w-[95%]  mx-auto  ">
         <div className="md:flex items-center justify-between bg-white py-2 md:px-0 px-4">
           <Link to="/">
             <div className="font-bold  cursor-pointer flex items-center font-[Poppins] text-gray-900">
-              <img
-                src={logo}
-                alt="logo"
-                className="lg:w-12 h-12 md:w-12 w-12 rounded-full"
-              />
+              <img src={logo} alt="logo" className="w-16 rounded-full" />
               <span className="text-gray-700 font-semibold ml-2 lg:text-lg md:text-sm text-lg">
                 Shadin Organic
               </span>
