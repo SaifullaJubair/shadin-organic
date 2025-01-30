@@ -1,4 +1,5 @@
 import React from "react";
+import parse from "html-react-parser";
 
 const ProductSpecification = ({ singleProduct }) => {
   const {
@@ -6,15 +7,9 @@ const ProductSpecification = ({ singleProduct }) => {
     product_name,
     category,
     box_content,
-    primary_color,
-    primary_img,
-    price,
-    available_color,
     size,
     product_highlight,
     details,
-    feature_img1,
-    feature_img2,
     post_date,
   } = singleProduct;
   return (
@@ -34,36 +29,7 @@ const ProductSpecification = ({ singleProduct }) => {
               </th>
               <td className="px-6 py-4">{product_name}</td>
             </tr>
-            {/* <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                Color
-              </th>
-              <td className="px-6 py-4">{primary_color}</td>
-            </tr>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                Available Color
-              </th>
-              <td className="px-6 py-4 flex ">
-                {" "}
-                {available_color?.map((color) => (
-                  <div
-                    key={color?.id}
-                    className="mr-2"
-                    // style={{ backgroundColor: color?.id }}
-                  >
-                    {" "}
-                    {color?.name},
-                  </div>
-                ))}
-              </td>
-            </tr> */}
+
             {size && (
               <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                 <th
@@ -120,8 +86,21 @@ const ProductSpecification = ({ singleProduct }) => {
         <p className="text-lg bg-gray-50 p-2 font-semibold my-2 text-gray-800 break-words">
           Product Details of : {product_name}
         </p>
-        <p className="text-gray-800 m-2 break-words">{product_highlight}</p>
-        <p className="text-gray-800 m-2  break-words">{details}</p>
+
+        <div>
+          {parse(
+            product_highlight
+              ?.replaceAll("<ol>", '<ol className="list-decimal list-inside">')
+              ?.replaceAll("<ul>", '<ul className="list-disc list-inside">')
+          )}
+        </div>
+        <div>
+          {parse(
+            details
+              ?.replaceAll("<ol>", '<ol className="list-decimal list-inside">')
+              ?.replaceAll("<ul>", '<ul className="list-disc list-inside">')
+          )}
+        </div>
       </div>
     </div>
   );

@@ -29,6 +29,7 @@ import Orders from "../../Pages/DashBoard/Orders/Orders";
 import PaymentError from "../../Pages/Payment/PaymentError";
 import AllQnA from "../../Pages/DashBoard/AllQnA/AllQnA";
 import PrintOrderInfo from "../../Pages/DashBoard/PrintOrderInfo/PrintOrderInfo";
+import RichTextEditor from "../../components/ReactQuill/ReactQuill";
 
 const { createBrowserRouter } = require("react-router-dom");
 const { default: Main } = require("../../Layout/Main/Main");
@@ -91,6 +92,10 @@ const router = createBrowserRouter([
       //   path: "/contact",
       //   element: <Contact></Contact>,
       // },
+      {
+        path: "/react-quill",
+        element: <RichTextEditor />,
+      },
       {
         path: "/userprofile",
         element: (

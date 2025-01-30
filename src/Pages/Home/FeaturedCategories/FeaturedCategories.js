@@ -21,7 +21,7 @@ const FeaturedCategories = () => {
           Featured Categories
         </h2>
         <div className="bg-gray-100">
-          <div className="relative px-4 py-16 mx-auto sm:max-w-2xl md:max-w-full lg:max-w-screen-3xl md:px-8 lg:px-8 lg:py-20">
+          <div className="relative px-4 py-16 mx-auto sm:max-w-2xl md:max-w-full lg:max-w-screen-3xl md:px-8 lg:px-8 lg:py-10">
             <div className="absolute inset-x-0 top-0 items-center justify-center hidden overflow-hidden md:flex md:inset-y-0">
               <svg
                 viewBox="0 0 88 88"

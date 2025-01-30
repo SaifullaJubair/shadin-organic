@@ -7,6 +7,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Contexts/AuthProvider/AuthProvider";
 import { toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
+import ReactQuill from "react-quill";
+
 import Select from "react-dropdown-select";
 
 function AddProducts() {
@@ -24,7 +26,8 @@ function AddProducts() {
   const [errSize, setErrSize] = useState(0);
   const [value, setValue] = useState();
   const [categories, setCategories] = useState(null);
-
+  const [highlights, setHighlights] = useState("");
+  const [description, setDescription] = useState("");
   useEffect(() => {
     fetch("https://shadin-organic-server.vercel.app/allcategories")
       .then((res) => res.json())
@@ -50,40 +53,7 @@ function AddProducts() {
   const formattedDate = new Intl.DateTimeFormat("en-US", options).format(
     currentDate
   );
-  // console.log(formattedDate);
-  // const option = [
-  //   { id: "#ffffff", name: "MultiColor" },
-  //   { id: "#FFFF00", name: "Yellow" },
-  //   { id: "#FF0000", name: "Red" },
-  //   { id: "#ff00ff", name: "Magenta" },
-  //   { id: "#ffc0cb", name: "Pink" },
-  //   { id: "#0000FF", name: "Blue" },
-  //   { id: "#008000", name: "Green" },
-  //   { id: "#ffffff", name: "White" },
-  //   { id: "#ffd700", name: "Golden" },
-  //   { id: "#000000", name: "Black" },
-  //   { id: "#ffa500", name: "Orange" },
-  //   { id: "#800080", name: "Purple" },
-  //   { id: "#a52a2a", name: "Brown" },
-  //   { id: "#808080", name: "Grey" },
-  //   { id: "#800000", name: "Maroon" },
-  //   { id: "#00ffff", name: "Cyan" },
-  //   { id: "#d2691e", name: "Chocolate" },
-  //   { id: "#00ffff", name: "Aqua" },
-  //   { id: "#00ff00", name: "Lime" },
-  //   { id: "#4b0082", name: "Indigo" },
-  //   { id: "#c0c0c0", name: "Silver" },
-  //   { id: "#CD7F32", name: "Bronze" },
-  //   { id: "#008080", name: "Teal" },
-  //   { id: "#7F00FF", name: "Violet" },
-  //   { id: "#DC143C", name: "Crimson" },
-  //   { id: "#ff7f50", name: "Coral" },
-  //   { id: "#f0e68c", name: "Khaki" },
-  //   { id: "#808000", name: "Olive" },
-  //   { id: "#000080", name: "Navy" },
-  //   { id: "#ffbf00", name: "Amber" },
-  //   { id: "#e6e6fa", name: "Lavender" },
-  // ];
+
   const handleAddProduct = async (data) => {
     const {
       productName,
@@ -94,8 +64,8 @@ function AddProducts() {
       // primaryColor,
       primaryImg,
       product_status,
-      description,
-      productHighlight,
+      // description,
+      // productHighlight,
       optionalImg1,
       optionalImg2,
     } = data;
@@ -129,15 +99,6 @@ function AddProducts() {
       method: "POST",
       body: optionalImgFormData02,
     };
-    // optional img03
-    // const optionalImage03 = optionalImg3[0];
-    // const optionalImgFormData03 = new FormData();
-    // optionalImgFormData03.append("image", optionalImage03);
-
-    // const optionalImageConfig03 = {
-    //   method: "POST",
-    //   body: optionalImgFormData03,
-    // };
 
     try {
       setLoading(true);
@@ -160,13 +121,6 @@ function AddProducts() {
         optionalImageConfig02
       );
       const optionalImgBbData02 = await optionalImgBbRes02.json();
-
-      // optional image post03
-      // const optionalImgBbRes03 = await fetch(
-      //   `https://api.imgbb.com/1/upload?key=${imageHostKey}`,
-      //   optionalImageConfig03
-      // );
-      // const optionalImgBbData03 = await optionalImgBbRes03.json();
 
       if (
         !productImgBbData.success &&
@@ -191,20 +145,10 @@ function AddProducts() {
         user_email: user?.email,
         user_image: user?.photoURL,
         user_name: user?.displayName,
-        product_highlight: productHighlight,
+        product_highlight: highlights,
         details: description,
         feature_img1: optionalImgBbData?.data.url,
         feature_img2: optionalImgBbData02?.data.url,
-        // optional_img3: optionalImgBbData03?.data.url,
-        // variants: [
-        //   {//
-        //     floor,
-        //     room,
-        //     balcony,
-        //     bathroom,
-        //     feature_img: featureImgBbData.data.url,
-        //   },
-        // ],
 
         post_date: formattedDate,
       };
@@ -413,73 +357,6 @@ function AddProducts() {
             {/* Product price here  */}
           </div>
 
-          {/* Color Variant and Primary product img  */}
-          {/* <div className="grid gap-5 md:grid-cols-2 md:gap-6">
-            <div className="relative w-full group">
-              <label
-                for="primaryColor"
-                className="  text-xs pl-2  text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-1 -z-10 origin-[0] font-semibold peer-focus:left-0 peer-focus:text-secondary peer-focus:dark:text-secondary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-              >
-                Product Color
-              </label>
-              <select
-                id="0"
-                className="block shadow-md shadow-primary/10 pl-2 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-secondary focus:outline-none focus:ring-0  peer focus:border-secondary"
-                {...register("primaryColor", { required: true })}
-              >
-                <option disabled selected>
-                  Select Color
-                </option>
-                <option value="MultiColor">MultiColor</option>
-                <option value="Yellow">Yellow</option>
-                <option value="Red">Red</option>
-                <option value="Magenta">Magenta</option>
-                <option value="Pink">Pink</option>
-                <option value="Orange">Orange</option>
-                <option value="Golden">Golden</option>
-                <option value="White">White</option>
-                <option value="Green">Green</option>
-                <option value="Maroon">Maroon</option>
-                <option value="Blue">Blue</option>
-                <option value="Purple">Purple</option>
-                <option value="Silver">Silver</option>
-                <option value="Grey">Grey</option>
-                <option value="Brown">Brown</option>
-                <option value="Aqua">Aqua</option>
-                <option value="Amber">Amber</option>
-                <option value="Black">Black</option>
-                <option value="Crimson">Crimson</option>
-                <option value="Coral">Coral</option>
-                <option value="Cyan">Cyan</option>
-                <option value="Chocolate">Chocolate</option>
-                <option value="Lime">Lime</option>
-                <option value="Indigo">Indigo</option>
-                <option value="Bronze">Bronze</option>
-                <option value="Teal">Teal</option>
-                <option value="Violet">Violet</option>
-                <option value="Khaki">Khaki</option>
-                <option value="Olive">Olive</option>
-                <option value="Navy">Navy</option>
-                <option value="Lavender">Lavender</option>
-              </select>
-            </div>
-            <div className="relative w-full mb-6 group ">
-              <label
-                for="availableColor"
-                className="  text-xs pl-2  text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-1 -z-10 origin-[0] font-semibold peer-focus:left-0 peer-focus:text-secondary peer-focus:dark:text-secondary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-              >
-                Available Color
-              </label>
-              <Select
-                name="select"
-                options={option}
-                labelField="name"
-                valueField="id"
-                multi
-                onChange={(value) => setValue(value)}
-              ></Select>
-            </div>
-          </div> */}
           <div className="grid gap-5 md:grid-cols-3 md:gap-6">
             <div className="relative w-full mb-6 group">
               <label
@@ -545,40 +422,8 @@ function AddProducts() {
               )}
             </div>
           </div>
-          {/*Optional img  */}
-          <div className="grid gap-2 md:grid-cols-2 md:gap-3">
-            {/* optional img 02  */}
 
-            {/* optional img 03  */}
-            {/* <div className="relative w-full mb-6 group">
-              <label
-                className="block mb-2 mt-2 pl-2 text-xs font-medium text-gray-600 dark:text-white"
-                for="user_avatar"
-              >
-                Product optional img 03
-              </label>
-              <input
-                style={{ lineHeight: "10px" }}
-                className="block w-full text-xs text-gray-900 rounded-sm shadow-md cursor-pointer shadow-primary/10 bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:placeholder-gray-400"
-                aria-describedby="user_avatar_help"
-                id="user_avatar small_input"
-                type="file"
-                {...register("optionalImg3")}
-              />
-            </div> */}
-            {/* 
-            <div id="optionalImg">
-              {imagesPreview.map((image, index) => (
-                <img
-                  key={index}
-                  src={image}
-                  alt="Product Optional Img Preview"
-                />
-              ))}
-            </div> */}
-          </div>
-
-          <div className="flex flex-col items-start mb-6">
+          {/* <div className="flex flex-col items-start mb-6">
             <label
               for="productHighlight"
               className="block mb-2 text-sm pl-2 font-medium text-gray-900 dark:text-white"
@@ -599,7 +444,6 @@ function AddProducts() {
             )}
           </div>
 
-          {/* Product description  */}
           <div className="flex flex-col items-start mb-6">
             <label
               for="message"
@@ -619,8 +463,57 @@ function AddProducts() {
                 This field is required
               </span>
             )}
+          </div> */}
+          <div className="flex flex-col items-start mb-6 ">
+            <label
+              htmlFor="productHighlight"
+              className="block mb-2 text-sm pl-2 font-medium text-gray-900 dark:text-white"
+            >
+              Product Highlight
+            </label>
+            <ReactQuill
+              id="productHighlight"
+              value={highlights}
+              onChange={(value) => setHighlights(value)}
+              className="block w-full text-sm text-gray-900 rounded-sm h-36"
+              modules={{
+                toolbar: [
+                  [{ header: [1, 2, 3, 4, false] }],
+                  ["bold", "italic", "underline", "strike"], // Add 'underline' and 'strike'
+                  [{ list: "ordered" }, { list: "bullet" }], // Add ordered and unordered lists
+                  ["link"],
+                  ["clean"],
+                ],
+              }} // Customize the toolbar as needed
+              placeholder="Write your product key feature..."
+            />
           </div>
 
+          {/* Product description */}
+          <div className="flex flex-col items-start my-12">
+            <label
+              htmlFor="message"
+              className="block mb-2 pl-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Product Description
+            </label>
+            <ReactQuill
+              modules={{
+                toolbar: [
+                  [{ header: [1, 2, 3, 4, false] }],
+                  ["bold", "italic", "underline", "strike"], // Add 'underline' and 'strike'
+                  [{ list: "ordered" }, { list: "bullet" }], // Add ordered and unordered lists
+                  ["link"],
+                  ["clean"],
+                ],
+              }}
+              className="block w-full text-sm text-gray-900 rounded-sm h-36"
+              id="description"
+              value={description}
+              onChange={(value) => setDescription(value)}
+              placeholder="Write your product description here..."
+            />
+          </div>
           <button
             type="submit"
             className={`mt-2 text-white bg-secondary hover:bg-secondary focus:ring-4 focus:outline-none focus:ring-secondary/60  font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-secondary dark:hover:bg-secondary dark:focus:ring-secondary/60 transition  duration-300  ${"transform active:translate-y-1"}`}
